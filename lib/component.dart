@@ -12,7 +12,7 @@ const designSize = Size(375, 812);
 const double defaultPadding = 16;
 const double defaultMaxWidth = 400;
 const double defaultNavBarHeight = 16 * 3.5;
-const double defaultBoxHeight = 16 * 3;
+const double defaultBoxHeight = 58;
 const double defaultCarouselHeight = 16 * 11;
 
 //! Color
