@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: appTitle,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: primarySwatch,
         ),
         home: Container(),
       ),
