@@ -1,6 +1,10 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:social_app/component.dart';
+
+import 'src/screens/screens/comment_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,14 +19,29 @@ class MyApp extends StatelessWidget {
       designSize: designSize,
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context, child) => MaterialApp(
+      builder: (context, child) => GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: appTitle,
+        initialBinding: InitializedBinding(),
+        scrollBehavior: const MaterialScrollBehavior().copyWith(dragDevices: {
+          PointerDeviceKind.mouse,
+          PointerDeviceKind.touch,
+        }),
         theme: ThemeData(
           primarySwatch: primarySwatch,
+          canvasColor: defaultWhite,
+          shadowColor: defaultShadowColor,
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            background: defaultWhite,
+          ),
         ),
-        home: Container(),
+        home: const CommentScreen(),
       ),
     );
   }
+}
+
+class InitializedBinding extends Bindings {
+  @override
+  void dependencies() {}
 }
