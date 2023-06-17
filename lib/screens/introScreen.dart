@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../component.dart';
-
+import '../Reusable/reusable_btns.dart';
 class IntroPage extends StatefulWidget {
   const IntroPage({Key? key}) : super(key: key);
 
@@ -28,14 +28,7 @@ class _IntroPageState extends State<IntroPage> {
           Text("with each other",style: largeText,),
           Text('Lorem Ispum',style: mediumTitle,),
           SizedBox(height: 20,),
-          ElevatedButton(
-              onPressed: (){},
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(width*0.9, 45),
-                  backgroundColor: Colors.greenAccent,
-                  foregroundColor: Colors.white
-              ),
-              child: Text("Get Started", style: largeSubTitle,))
+          CustomElevatedButton1(width, "Get Started"),
         ],
       ),
 
