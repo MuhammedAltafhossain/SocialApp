@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:social_app/component.dart';
-
-import 'src/screens/screens/comment_screen.dart';
+import 'package:social_app/src/screens/screens/news_feed_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,7 +34,7 @@ class MyApp extends StatelessWidget {
             background: defaultWhite,
           ),
         ),
-        home: const CommentScreen(),
+        home: const NewsFeedScreen(),
       ),
     );
   }
