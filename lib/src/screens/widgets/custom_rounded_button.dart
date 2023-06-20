@@ -29,7 +29,7 @@ class CustomRoundedButton extends StatelessWidget {
           Container(
             clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
+              borderRadius: BorderRadius.circular(200),
               color: backgroundColor ?? Theme.of(context).shadowColor.withOpacity(0.5),
             ),
             height: size,
