@@ -153,7 +153,9 @@ class CommentScreen extends StatelessWidget {
               Positioned(
                 top: defaultPadding,
                 left: 0,
-                child: CustomBackButton(),
+                child: CustomBackButton(
+                  onTab: () {},
+                ),
               )
             ],
           ),

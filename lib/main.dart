@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:social_app/component.dart';
+import 'package:social_app/src/screens/screens/followers_screen.dart';
 
 import 'src/screens/screens/comment_screen.dart';
 
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
             background: defaultWhite,
           ),
         ),
-        home: const CommentScreen(),
+        home: const FollowerScreen(),
       ),
     );
   }
