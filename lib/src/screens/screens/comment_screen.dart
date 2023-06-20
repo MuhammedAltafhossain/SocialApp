@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:social_app/component.dart';
 import 'package:social_app/src/controllers/screens_controllers/comment_screen_controller.dart';
 import 'package:social_app/src/screens/widgets/custom_animated_size.dart';
+import 'package:social_app/src/screens/widgets/custom_back_button.dart';
+import 'package:social_app/src/screens/widgets/custom_box.dart';
 import 'package:social_app/src/screens/widgets/custom_elevated_button_widget.dart';
 import 'package:social_app/src/screens/widgets/custom_rounded_button.dart';
 import 'package:social_app/src/screens/widgets/network_image.dart';
+import 'package:social_app/src/screens/widgets/profile_head_short_info.dart';
 
 class CommentScreen extends StatelessWidget {
   const CommentScreen({super.key});
@@ -22,6 +26,7 @@ class CommentScreen extends StatelessWidget {
         body: SafeArea(
           child: Stack(
             children: [
+              //! Comments
               ListView.builder(
                 itemCount: totalItem + 2,
                 itemBuilder: (context, index) {
@@ -120,31 +125,17 @@ class CommentScreen extends StatelessWidget {
                       ],
                     );
                   }
-                  // ! Posted Text
+                  //! Post
                   else if (index == 1) {
-                    return Container(
-                      padding: const EdgeInsets.symmetric(horizontal: defaultPadding, vertical: defaultPadding),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).canvasColor,
-                        border: const BorderDirectional(bottom: BorderSide(color: defaultShadowColor, width: 1)),
-                      ),
+                    return CustomBox(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           //! Profile Image & Info
-                          Row(
-                            children: [
-                              const CustomRoundedButton(child: CustomNetworkImage(url: "https://s3-alpha-sig.figma.com/img/9ffb/c5ae/c9c30c0248c3731569b1f7170833a931?Expires=1687737600&Signature=lCJV-i9fUFSrTE2jNmtuDxIfsl50cseN~r56udOJ6rfubFz~zJC6NcZQOJMngpngMfHTMyj3eB~pzKQV7419SN-IRx2TrAPnd0cWzOJpk44yWPi6degkIXP7weRn8KdwVWKaUxu7NaW2TFXj~Dlsj0dN1c9XCrl~bHLEJRsN5-MPgZukOTWCfpV-VmLIiUONuZvhl0-Kn~~QHxTFLKY1X1yN9b8tqYQHg8UBEQJzidAmSc6cFdXIY8A6D8A-0d96lC5FH8oiHeoAuQaHTJZepzvxI1-F1hgPj75bLJ~dyBagp~AhzuhmgWvqJ9tho3-8oZjeCVsDcpdxznFwokOAOQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4")),
-                              const SizedBox(width: defaultPadding / 1.5),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Morsalin Nur", style: mediumTitle),
-                                  const SizedBox(height: defaultPadding / 8),
-                                  Text("52 minutes ago", style: mediumText.copyWith(height: 1)),
-                                ],
-                              )
-                            ],
+                          const ProfileHeadShortInfo(
+                            profileUrl: "https://s3-alpha-sig.figma.com/img/9ffb/c5ae/c9c30c0248c3731569b1f7170833a931?Expires=1687737600&Signature=lCJV-i9fUFSrTE2jNmtuDxIfsl50cseN~r56udOJ6rfubFz~zJC6NcZQOJMngpngMfHTMyj3eB~pzKQV7419SN-IRx2TrAPnd0cWzOJpk44yWPi6degkIXP7weRn8KdwVWKaUxu7NaW2TFXj~Dlsj0dN1c9XCrl~bHLEJRsN5-MPgZukOTWCfpV-VmLIiUONuZvhl0-Kn~~QHxTFLKY1X1yN9b8tqYQHg8UBEQJzidAmSc6cFdXIY8A6D8A-0d96lC5FH8oiHeoAuQaHTJZepzvxI1-F1hgPj75bLJ~dyBagp~AhzuhmgWvqJ9tho3-8oZjeCVsDcpdxznFwokOAOQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+                            title: "Morsalin Nur",
+                            subTitle: "52 minutes ago",
                           ),
                           const SizedBox(height: defaultPadding),
                           Text(
@@ -162,16 +153,7 @@ class CommentScreen extends StatelessWidget {
               Positioned(
                 top: defaultPadding,
                 left: 0,
-                child: CustomElevatedButton(
-                  height: 45,
-                  width: 45,
-                  margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
-                  backgroundColor: Theme.of(context).shadowColor.withOpacity(0.5),
-                  onDone: (_) {
-                    Get.back();
-                  },
-                  child: Icon(Icons.arrow_back, color: Theme.of(context).canvasColor),
-                ),
+                child: CustomBackButton(),
               )
             ],
           ),
@@ -191,65 +173,41 @@ class CommentScreenCommentListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).canvasColor,
-          border: const BorderDirectional(bottom: BorderSide(color: defaultShadowColor, width: 1)),
-        ),
-        child: Material(
-          color: Colors.transparent,
-          child: InkWell(
-            onTap: () => isExpanded.value = !isExpanded.value,
-            child: Padding(
-              padding: const EdgeInsets.only(left: defaultPadding, right: defaultPadding / 2, top: defaultPadding, bottom: defaultPadding),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  //! Profile Image & Info
-                  Row(
-                    children: [
-                      CustomRoundedButton(onTap: () {}, child: const CustomNetworkImage(url: "https://s3-alpha-sig.figma.com/img/e1c8/d586/c7ccc1b11d6ad688c0fb7742756c5db6?Expires=1687737600&Signature=nwRoWX3pfivFRk3Ab756m-FQ-Xi5YPGwxPGN4ckAVkOGgfeeIsf0H6MTqBXdDPzQX6yUQTktgLydI4TsnolOyWoUDnDApjWDfV-O5au1vbhd8rR9zdPh5IVt9t3~WzsZddYXjKy8XXURgx7d9LyL6OYBCiqjnFxCxpppcUEzPPEs4Vsd3F0vGaGaS~Y5NvPfrEieIZwp71IsRQiaEeKuNjh5psmDQnjJEE769GSPm1gjTzzi-WS~41fcznApeU-i-akiCm7UZVk7KuxSjTOZpavC5J0rTFNnY6UzUuaP8xFY9iE6KjZMxi9S23wK51v-swbPUMkd~f4KSOBqOLTlog__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4")),
-                      const SizedBox(width: defaultPadding / 1.5),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Morsalin Nur", style: mediumTitle),
-                            const SizedBox(height: defaultPadding / 8),
-                            Text("52 minutes ago", style: mediumText.copyWith(height: 1)),
-                          ],
-                        ),
-                      ),
-                      //! Like Button
-                      CustomRoundedButton(
-                        onTap: () {
-                          isLiked.value = !isLiked.value;
-                        },
-                        backgroundColor: Colors.transparent,
-                        child: Icon(
-                          isLiked.value ? Icons.favorite : Icons.favorite_border,
-                          color: isLiked.value ? Theme.of(context).colorScheme.error : Theme.of(context).shadowColor,
-                        ),
-                      )
-                    ],
-                  ),
-                  const SizedBox(height: defaultPadding),
-                  CustomAnimatedSize(
-                    alignment: Alignment.topCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: defaultPadding),
-                      child: Text(
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
-                        maxLines: isExpanded.value ? null : 2,
-                        overflow: isExpanded.value ? TextOverflow.clip : TextOverflow.ellipsis,
-                        style: mediumText,
-                      ),
-                    ),
-                  ),
-                ],
+      () => CustomBox(
+        onTap: () => isExpanded.value = !isExpanded.value,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            //! Profile Image & Info & Like Button
+            ProfileHeadShortInfo(
+              profileUrl: "https://s3-alpha-sig.figma.com/img/e1c8/d586/c7ccc1b11d6ad688c0fb7742756c5db6?Expires=1687737600&Signature=nwRoWX3pfivFRk3Ab756m-FQ-Xi5YPGwxPGN4ckAVkOGgfeeIsf0H6MTqBXdDPzQX6yUQTktgLydI4TsnolOyWoUDnDApjWDfV-O5au1vbhd8rR9zdPh5IVt9t3~WzsZddYXjKy8XXURgx7d9LyL6OYBCiqjnFxCxpppcUEzPPEs4Vsd3F0vGaGaS~Y5NvPfrEieIZwp71IsRQiaEeKuNjh5psmDQnjJEE769GSPm1gjTzzi-WS~41fcznApeU-i-akiCm7UZVk7KuxSjTOZpavC5J0rTFNnY6UzUuaP8xFY9iE6KjZMxi9S23wK51v-swbPUMkd~f4KSOBqOLTlog__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
+              title: "Morsalin Nur",
+              subTitle: "52 minutes ago",
+              endChild: CustomRoundedButton(
+                onTap: () {
+                  isLiked.value = !isLiked.value;
+                },
+                backgroundColor: Colors.transparent,
+                child: Icon(
+                  isLiked.value ? Icons.favorite : Icons.favorite_border,
+                  color: isLiked.value ? Theme.of(context).colorScheme.error : Theme.of(context).shadowColor,
+                ),
               ),
             ),
-          ),
+            SizedBox(height: defaultPadding.h),
+            CustomAnimatedSize(
+              alignment: Alignment.topCenter,
+              child: Padding(
+                padding: EdgeInsets.only(right: (defaultPadding / 2).w),
+                child: Text(
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
+                  maxLines: isExpanded.value ? null : 2,
+                  overflow: isExpanded.value ? TextOverflow.clip : TextOverflow.ellipsis,
+                  style: mediumText,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
