@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:social_app/component.dart';
 import 'package:social_app/src/controllers/screens_controllers/comment_screen_controller.dart';
+import 'package:social_app/src/screens/screens/followers_screen.dart';
 import 'package:social_app/src/screens/widgets/custom_animated_size.dart';
+import 'package:social_app/src/screens/widgets/custom_top_bar.dart';
 import 'package:social_app/src/screens/widgets/custom_top_navbar_elevated_button.dart';
 import 'package:social_app/src/screens/widgets/custom_box.dart';
 import 'package:social_app/src/screens/widgets/custom_elevated_button_widget.dart';
@@ -15,6 +17,11 @@ class CommentScreen extends StatelessWidget {
   const CommentScreen({super.key});
 
   final int totalItem = 10;
+
+  final String postImage = "https://s3-alpha-sig.figma.com/img/ed5a/f9b2/fc6422bd17bf57a6b69562a7ba69184e?Expires=1687737600&Signature=EGA4hivo-J2IhxA-xGIvDj4UFHacj1fug4ZmUUlJwLP9tZpFqjhzNkZRByRppfIc-eqrfX2nXm5~FqDkXCNAPrxolU8s~kvNXCqWqY0J1akH24uQ3rN5N8aHclwO~TnCsV3e4ErAMRCbATzkPRjJ7qZ9nfzIf5L7CCXwknq7fGuCPlA0i8w6txj9sXwedMwiEfGtvQtyQ4~UiUrPU477v94o~3Q7sMYk13v0JW8I-RXAwjBZKv~grXQjGtDqZ4wGv99jh7v7E-geZKuZpeVI2jkNBV6W2BUhQQGryBtbunwkIzM4lVllPuBEjI2azvdB-uoomz0WTtjjrMj93Mvs4A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4";
+  final String profileUrl = "https://s3-alpha-sig.figma.com/img/9ffb/c5ae/c9c30c0248c3731569b1f7170833a931?Expires=1687737600&Signature=lCJV-i9fUFSrTE2jNmtuDxIfsl50cseN~r56udOJ6rfubFz~zJC6NcZQOJMngpngMfHTMyj3eB~pzKQV7419SN-IRx2TrAPnd0cWzOJpk44yWPi6degkIXP7weRn8KdwVWKaUxu7NaW2TFXj~Dlsj0dN1c9XCrl~bHLEJRsN5-MPgZukOTWCfpV-VmLIiUONuZvhl0-Kn~~QHxTFLKY1X1yN9b8tqYQHg8UBEQJzidAmSc6cFdXIY8A6D8A-0d96lC5FH8oiHeoAuQaHTJZepzvxI1-F1hgPj75bLJ~dyBagp~AhzuhmgWvqJ9tho3-8oZjeCVsDcpdxznFwokOAOQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4";
+  final title = "Morsalin Nur";
+  final subTitle = "52 minutes ago";
 
   @override
   Widget build(BuildContext context) {
@@ -28,34 +35,18 @@ class CommentScreen extends StatelessWidget {
             children: [
               //! Comments
               ListView.builder(
+                controller: controller.scrollController,
                 itemCount: totalItem + 2,
                 itemBuilder: (context, index) {
                   //! Posted Image
                   if (index == 0) {
                     return Stack(
                       children: [
-                        const SizedBox(
+                        SizedBox(
                           width: double.infinity,
                           height: 300,
                           child: CustomNetworkImage(
-                            url: "https://s3-alpha-sig.figma.com/img/ed5a/f9b2/fc6422bd17bf57a6b69562a7ba69184e?Expires=1687737600&Signature=EGA4hivo-J2IhxA-xGIvDj4UFHacj1fug4ZmUUlJwLP9tZpFqjhzNkZRByRppfIc-eqrfX2nXm5~FqDkXCNAPrxolU8s~kvNXCqWqY0J1akH24uQ3rN5N8aHclwO~TnCsV3e4ErAMRCbATzkPRjJ7qZ9nfzIf5L7CCXwknq7fGuCPlA0i8w6txj9sXwedMwiEfGtvQtyQ4~UiUrPU477v94o~3Q7sMYk13v0JW8I-RXAwjBZKv~grXQjGtDqZ4wGv99jh7v7E-geZKuZpeVI2jkNBV6W2BUhQQGryBtbunwkIzM4lVllPuBEjI2azvdB-uoomz0WTtjjrMj93Mvs4A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
-                          ),
-                        ),
-                        //! Option Button
-                        Positioned(
-                          top: defaultPadding,
-                          right: 0,
-                          child: Row(
-                            children: [
-                              const SizedBox(height: 45),
-                              CustomRoundedButton(
-                                size: defaultBoxHeight / 1.5,
-                                backgroundColor: Colors.transparent,
-                                margin: const EdgeInsets.symmetric(horizontal: defaultPadding - defaultBoxHeight / 4),
-                                onTap: () {},
-                                child: Icon(Icons.more_vert, color: Theme.of(context).canvasColor),
-                              ),
-                            ],
+                            url: postImage,
                           ),
                         ),
                         //! Share, like & comment status
@@ -86,7 +77,7 @@ class CommentScreen extends StatelessWidget {
                                 const Spacer(),
                                 CustomElevatedButton(
                                   backgroundColor: Colors.transparent,
-                                  contentPadding: const EdgeInsets.symmetric(horizontal: defaultPadding / 4),
+                                  contentPadding: const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
                                   height: 45,
                                   child: Row(
                                     children: [
@@ -104,7 +95,7 @@ class CommentScreen extends StatelessWidget {
                                 ),
                                 CustomElevatedButton(
                                   backgroundColor: Colors.transparent,
-                                  contentPadding: const EdgeInsets.symmetric(horizontal: defaultPadding / 4),
+                                  contentPadding: const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
                                   height: 45,
                                   child: Row(
                                     children: [
@@ -132,10 +123,10 @@ class CommentScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           //! Profile Image & Info
-                          const ProfileHeadShortInfo(
-                            profileUrl: "https://s3-alpha-sig.figma.com/img/9ffb/c5ae/c9c30c0248c3731569b1f7170833a931?Expires=1687737600&Signature=lCJV-i9fUFSrTE2jNmtuDxIfsl50cseN~r56udOJ6rfubFz~zJC6NcZQOJMngpngMfHTMyj3eB~pzKQV7419SN-IRx2TrAPnd0cWzOJpk44yWPi6degkIXP7weRn8KdwVWKaUxu7NaW2TFXj~Dlsj0dN1c9XCrl~bHLEJRsN5-MPgZukOTWCfpV-VmLIiUONuZvhl0-Kn~~QHxTFLKY1X1yN9b8tqYQHg8UBEQJzidAmSc6cFdXIY8A6D8A-0d96lC5FH8oiHeoAuQaHTJZepzvxI1-F1hgPj75bLJ~dyBagp~AhzuhmgWvqJ9tho3-8oZjeCVsDcpdxznFwokOAOQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4",
-                            title: "Morsalin Nur",
-                            subTitle: "52 minutes ago",
+                          ProfileHeadShortInfo(
+                            profileUrl: profileUrl,
+                            title: title,
+                            subTitle: subTitle,
                           ),
                           const SizedBox(height: defaultPadding),
                           Text(
@@ -151,12 +142,41 @@ class CommentScreen extends StatelessWidget {
               ),
               // ! Back
               Positioned(
-                top: defaultPadding,
+                // top: defaultPadding,
                 left: 0,
-                child: CustomTopNavbarElevatedButton(
-                  onTab: () {},
+                right: 0,
+                child: Obx(
+                  () => CustomTopBar(
+                    enableBorder: false,
+                    backgroundOpacity: controller.navbarOpacity.value,
+                    leadingAction: [
+                      CustomTopNavbarElevatedButton(
+                        hiddenBackground: controller.navbarOpacity.value < 0.5 ? true : false,
+                        icon: Icons.arrow_back,
+                      )
+                    ],
+                    leadingWidget: CustomAnimatedSize(
+                      child: controller.navbarOpacity.value < 0.5
+                          ? null
+                          : ProfileHeadShortInfo(
+                              profileUrl: profileUrl,
+                              title: title,
+                              subTitle: subTitle,
+                            ),
+                    ),
+                    endingAction: [
+                      CustomRoundedButton(
+                        hiddenBackground: true,
+                        onTap: () => Get.to(const FollowerScreen()),
+                        child: Icon(
+                          Icons.more_vert_outlined,
+                          color: controller.navbarOpacity.value < 0.5 ? Theme.of(context).canvasColor : defaultBlack,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              )
+              ),
             ],
           ),
         ),

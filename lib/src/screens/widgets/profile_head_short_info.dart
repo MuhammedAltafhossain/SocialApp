@@ -23,7 +23,8 @@ class ProfileHeadShortInfo extends StatelessWidget {
     return Row(
       children: [
         CustomRoundedButton(
-          onTap: onTap,
+          backgroundColor: null,
+          // onTap: onTap,
           child: CustomNetworkImage(
             url: profileUrl,
           ),

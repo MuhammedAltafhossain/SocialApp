@@ -7,9 +7,13 @@ class CustomTopNavbarElevatedButton extends StatelessWidget {
     super.key,
     this.onTab,
     this.icon,
+    this.hiddenBackground = false,
+    this.backgroundColor,
   });
   final Function()? onTab;
   final IconData? icon;
+  final bool hiddenBackground;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +21,17 @@ class CustomTopNavbarElevatedButton extends StatelessWidget {
       height: 45,
       width: 45,
       // margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
-      backgroundColor: Colors.transparent,
-      gradient: gradient,
+      backgroundColor: backgroundColor ?? Colors.transparent,
+      gradient: hiddenBackground
+          ? null
+          : LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                defaultGradientColor1.withOpacity(hiddenBackground ? 0.1 : 1),
+                defaultGradientColor2.withOpacity(hiddenBackground ? 0.1 : 1)
+              ],
+            ),
       onDone: (_) {
         if (onTab != null) onTab!();
       },

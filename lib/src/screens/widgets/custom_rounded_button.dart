@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_app/component.dart';
 
 class CustomRoundedButton extends StatelessWidget {
   const CustomRoundedButton({
@@ -10,15 +11,21 @@ class CustomRoundedButton extends StatelessWidget {
     this.notificationChild,
     this.margin,
     this.backgroundColor,
+    this.hiddenBackground = false,
+    this.contentPadding,
+    this.onLongPress,
   });
   final double size;
 
   final void Function()? onTap;
+  final void Function()? onLongPress;
   final BoxBorder? border;
   final Widget? child;
   final Widget? notificationChild;
   final EdgeInsetsGeometry? margin;
   final Color? backgroundColor;
+  final EdgeInsetsGeometry? contentPadding;
+  final bool hiddenBackground;
 
   @override
   Widget build(BuildContext context) {
@@ -28,16 +35,29 @@ class CustomRoundedButton extends StatelessWidget {
         children: [
           Container(
             clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              color: backgroundColor ?? Theme.of(context).shadowColor.withOpacity(0.5),
-            ),
             height: size,
             width: size,
+            padding: contentPadding,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(100),
+              color: backgroundColor,
+              border: border,
+              gradient: hiddenBackground
+                  ? null
+                  : LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        defaultGradientColor1.withOpacity(hiddenBackground ? 0.1 : 1),
+                        defaultGradientColor2.withOpacity(hiddenBackground ? 0.1 : 1)
+                      ],
+                    ),
+            ),
             child: Material(
               color: Colors.transparent,
               child: InkWell(
                 onTap: onTap,
+                onLongPress: onLongPress,
                 child: child,
               ),
             ),
