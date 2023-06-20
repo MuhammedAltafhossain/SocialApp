@@ -50,13 +50,14 @@ class TopBar extends StatelessWidget {
     this.enableBorder = true,
     this.bottomChild,
     this.leadingAction = const [],
+    this.dummy,
   });
 
   final List<Widget> endingAction;
   final List<Widget> leadingAction;
   final Widget? bottomChild;
   final String? titleText;
-  // final
+  final bool? dummy;
   final bool enableBorder;
 
   @override
