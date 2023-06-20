@@ -4,10 +4,12 @@ import 'package:social_app/component.dart';
 
 class CustomBox extends StatelessWidget {
   final void Function()? onTap;
+  final bool enableBorder;
   final BorderRadiusGeometry? borderRadius;
   final Widget? child;
   const CustomBox({
     super.key,
+    this.enableBorder = true,
     this.onTap,
     this.borderRadius,
     this.child,
@@ -18,7 +20,7 @@ class CustomBox extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).canvasColor,
-        border: const BorderDirectional(bottom: BorderSide(color: defaultShadowColor, width: 1)),
+        border: enableBorder ? const BorderDirectional(bottom: BorderSide(color: defaultShadowColor, width: 1)) : null,
         borderRadius: borderRadius,
       ),
       child: Material(

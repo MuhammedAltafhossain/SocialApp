@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:social_app/component.dart';
 import 'package:social_app/src/controllers/screens_controllers/comment_screen_controller.dart';
 import 'package:social_app/src/screens/widgets/custom_animated_size.dart';
-import 'package:social_app/src/screens/widgets/custom_back_button.dart';
+import 'package:social_app/src/screens/widgets/custom_top_navbar_elevated_button.dart';
 import 'package:social_app/src/screens/widgets/custom_box.dart';
 import 'package:social_app/src/screens/widgets/custom_elevated_button_widget.dart';
 import 'package:social_app/src/screens/widgets/custom_rounded_button.dart';
@@ -153,7 +153,7 @@ class CommentScreen extends StatelessWidget {
               Positioned(
                 top: defaultPadding,
                 left: 0,
-                child: CustomBackButton(
+                child: CustomTopNavbarElevatedButton(
                   onTab: () {},
                 ),
               )
