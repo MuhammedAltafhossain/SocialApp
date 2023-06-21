@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:social_app/component.dart';
-import 'package:social_app/src/screens/screens/news_feed_screen.dart';
+import 'package:social_app/src/screens/screens/main_bottom_navigation_bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
             background: defaultWhite,
           ),
         ),
-        home: const NewsFeedScreen(),
+        home: const MainBottomNavigationBar(),
       ),
     );
   }
