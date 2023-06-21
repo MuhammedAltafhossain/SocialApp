@@ -75,35 +75,49 @@ class ProfilePage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        fixedSize: Size(width * 0.4, 40)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Icon(
-                          Icons.circle,
-                          color: Colors.greenAccent,
-                          size: 15,
-                        ),
-                        const Icon(
-                          Icons.message_outlined,
-                          color: Colors.black,
-                        ),
-                        Text(
-                          'Message',
-                          style: mediumTitle.copyWith(color: defaultBlack),
-                        )
-                      ],
-                    )),
+                CustomElevatedButton(
+                  contentPadding: EdgeInsets.symmetric(
+                      vertical: defaultPadding / 4,
+                      horizontal: defaultPadding / 2),
+                  borderRadius: BorderRadius.circular(defaultPadding),
+                  backgroundColor: Colors.transparent,
+                  border: Border.all(
+                      width: 1,
+                      color: Colors.grey,
+                      strokeAlign: BorderSide.strokeAlignOutside),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Icon(
+                        Icons.circle,
+                        color: Colors.greenAccent,
+                        size: 15,
+                      ),
+                      const SizedBox(
+                        width: defaultPadding / 2,
+                      ),
+                      const Icon(
+                        Icons.message_outlined,
+                        color: Colors.black,
+                      ),
+                      const SizedBox(
+                        width: defaultPadding / 2,
+                      ),
+                      Text(
+                        'Message',
+                        style: mediumTitle.copyWith(color: defaultBlack),
+                      )
+                    ],
+                  ),
+                ),
                 SizedBox(
                   width: width * 0.05,
                 ),
                 CustomElevatedButton(
-                  height: 40,
-                  width: width * 0.25,
+                  contentPadding: const EdgeInsets.symmetric(
+                      vertical: defaultPadding / 2.4,
+                      horizontal: defaultPadding),
+                  borderRadius: BorderRadius.circular(defaultPadding),
                   child: Text(
                     'Follow',
                     style: smallTitle.copyWith(color: Colors.white),
@@ -127,7 +141,7 @@ class ProfilePage extends StatelessWidget {
                     children: [
                       Text(
                         '6.3k',
-                        style: largeText,
+                        style: followerCount,
                       ),
                       Text(
                         'Followers',
@@ -146,7 +160,7 @@ class ProfilePage extends StatelessWidget {
                     children: [
                       Text(
                         '572',
-                        style: largeText,
+                        style: followerCount,
                       ),
                       Text(
                         'Post',
@@ -156,16 +170,16 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(7)),
+                      borderRadius: const BorderRadius.all(Radius.circular(7)),
                       border: Border.all(width: 1, color: Colors.black12)),
                   width: width * 0.3,
                   child: Column(
                     children: [
                       Text(
                         '2.5k',
-                        style: largeText,
+                        style: followerCount,
                       ),
                       Text(
                         'Following',
@@ -181,42 +195,12 @@ class ProfilePage extends StatelessWidget {
             ),
             CarouselSlider(
                 items: [
-                  SizedBox(
-                      height: height * 0.4,
-                      width: width,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.only(
-                            bottomRight: Radius.elliptical(width * 0.5, 60),
-                            bottomLeft: Radius.elliptical(width * 0.5, 60)),
-                        child: Image.network(
-                          'https://s3-alpha-sig.figma.com/img/6c77/c78f/ab99510d7c798e9182966b47f996f8eb?Expires=1688342400&Signature=iGxJ27k1AKTpODYq3kT3ZIwVD3nypf9y~Kkbn6hxNr7SFAvmoCM~L8Gwvcnh1G7RCSpPjsyzX2RxO4G3ctAWISJTe6Fgk80p4J0Q3JWsLtepTPmslTn8yUbEunRmfTNoT7rvk2D3wxwXAzL6VItzueCFlci0rkS0NT4GL32xBdnY3qgwoAoXza29OJstPmJC~XtvCLbcezzDzPe~3Ui2GpS98TeOMP3R2yu-0e9~m1NKeddnB6PkJ-VAQBRAQLaFzat7YtijG~TC67OTR6tlk-mV3fjU~kj9hA4Z4RLAYfyOp7wKIvG79GxhfmaywecCpsE68Kf-av7B0Ju6gmlnhw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
-                          fit: BoxFit.cover,
-                        ),
-                      )),
-                  SizedBox(
-                      height: height * 0.4,
-                      width: width,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.only(
-                            bottomRight: Radius.elliptical(width * 0.5, 60),
-                            bottomLeft: Radius.elliptical(width * 0.5, 60)),
-                        child: Image.network(
-                          'https://s3-alpha-sig.figma.com/img/9548/9887/8c164225ed77ca2e2b96a490ded58a9c?Expires=1688342400&Signature=jBL9HyoYvPGKKQnKSIm1iRga5VHqkKIXibDaOORw5rvRaFudgOc7z2h9D0Tt6zDVfkewODCa8UJ878e5PYn7t0eBECpaQhXK1FcP~ku2h1lgppsLi36GEmwuMcC8q7v8QGLBx3JxnS1~ZOPjwIWqBSH~Nt9uZOpuoCoc0YOtd-uLhd~Lsp3-xA6LpCeLCB~e7otSqOsBLy7B0DKBWpkJFd2z6xU-x8wpifg77fw06MopeW4-WpAxISAMOI9vIeU97Yeg1TGgtPjI6G9c~nvREaYnqIawlTpSWexD7TpPlG~5koYocWlC0-4Wjz68L0ERKZiQ6SaLzPXpROCwsOWQIg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
-                          fit: BoxFit.cover,
-                        ),
-                      )),
-                  SizedBox(
-                      height: height * 0.4,
-                      width: width,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.only(
-                            bottomRight: Radius.elliptical(width * 0.5, 60),
-                            bottomLeft: Radius.elliptical(width * 0.5, 60)),
-                        child: Image.network(
-                          'https://s3-alpha-sig.figma.com/img/a94b/08df/71a2df67ce174c0bc34a8eabbb9759ca?Expires=1688342400&Signature=fxnjXVdDqFWf-vh93lE4GwISjn3a1sWHLJK~414YFe9~BZMAqGokdio8QStGvqH3BAXv-uHG9XEvoiLHdysxyn9jMt-SztxwCyYCzy~2FiQiFJmKtm1klLyL~5l0YeC7kOIo6lxlItc81wHeJqNeLQ1vgOMWaYBK4dAcIUqBJ6tJQudWl5vESbd5oQntm7diGIjR8BgKhv16TttNuZFWnqXFVruhcq~5TAbkOB0jLLr1tKpAGpg780XXyp4w7AzkmGCcGaFGcOvXnc9MRKarLSVGR4BFCMCVeEF7y44jPS~mwkEmOiFR2x1QRvP~Gqdfm-QiiuWS84n5l8R9cMQI3A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4',
-                          fit: BoxFit.cover,
-                        ),
-                      ))
+                  customPictureContainer(height, width,
+                      'https://s3-alpha-sig.figma.com/img/6c77/c78f/ab99510d7c798e9182966b47f996f8eb?Expires=1688342400&Signature=iGxJ27k1AKTpODYq3kT3ZIwVD3nypf9y~Kkbn6hxNr7SFAvmoCM~L8Gwvcnh1G7RCSpPjsyzX2RxO4G3ctAWISJTe6Fgk80p4J0Q3JWsLtepTPmslTn8yUbEunRmfTNoT7rvk2D3wxwXAzL6VItzueCFlci0rkS0NT4GL32xBdnY3qgwoAoXza29OJstPmJC~XtvCLbcezzDzPe~3Ui2GpS98TeOMP3R2yu-0e9~m1NKeddnB6PkJ-VAQBRAQLaFzat7YtijG~TC67OTR6tlk-mV3fjU~kj9hA4Z4RLAYfyOp7wKIvG79GxhfmaywecCpsE68Kf-av7B0Ju6gmlnhw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'),
+                  customPictureContainer(height, width,
+                      'https://s3-alpha-sig.figma.com/img/9548/9887/8c164225ed77ca2e2b96a490ded58a9c?Expires=1688342400&Signature=jBL9HyoYvPGKKQnKSIm1iRga5VHqkKIXibDaOORw5rvRaFudgOc7z2h9D0Tt6zDVfkewODCa8UJ878e5PYn7t0eBECpaQhXK1FcP~ku2h1lgppsLi36GEmwuMcC8q7v8QGLBx3JxnS1~ZOPjwIWqBSH~Nt9uZOpuoCoc0YOtd-uLhd~Lsp3-xA6LpCeLCB~e7otSqOsBLy7B0DKBWpkJFd2z6xU-x8wpifg77fw06MopeW4-WpAxISAMOI9vIeU97Yeg1TGgtPjI6G9c~nvREaYnqIawlTpSWexD7TpPlG~5koYocWlC0-4Wjz68L0ERKZiQ6SaLzPXpROCwsOWQIg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'),
+                  customPictureContainer(height, width,
+                      'https://s3-alpha-sig.figma.com/img/a94b/08df/71a2df67ce174c0bc34a8eabbb9759ca?Expires=1688342400&Signature=fxnjXVdDqFWf-vh93lE4GwISjn3a1sWHLJK~414YFe9~BZMAqGokdio8QStGvqH3BAXv-uHG9XEvoiLHdysxyn9jMt-SztxwCyYCzy~2FiQiFJmKtm1klLyL~5l0YeC7kOIo6lxlItc81wHeJqNeLQ1vgOMWaYBK4dAcIUqBJ6tJQudWl5vESbd5oQntm7diGIjR8BgKhv16TttNuZFWnqXFVruhcq~5TAbkOB0jLLr1tKpAGpg780XXyp4w7AzkmGCcGaFGcOvXnc9MRKarLSVGR4BFCMCVeEF7y44jPS~mwkEmOiFR2x1QRvP~Gqdfm-QiiuWS84n5l8R9cMQI3A__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'),
                 ],
                 options: CarouselOptions(
                   height: height * 0.25,
@@ -257,4 +241,17 @@ Padding customStylishContainer() {
       ),
     ),
   );
+}
+
+SizedBox customPictureContainer(height, width, imageUrl) {
+  return SizedBox(
+      height: height * 0.4,
+      width: width,
+      child: ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        child: Image.network(
+          imageUrl,
+          fit: BoxFit.cover,
+        ),
+      ));
 }
