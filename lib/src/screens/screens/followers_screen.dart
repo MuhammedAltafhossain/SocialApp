@@ -23,40 +23,43 @@ class FollowerScreen extends StatelessWidget {
     return GetBuilder<FollowerScreenController>(
       init: FollowerScreenController(),
       builder: (controller) => Scaffold(
-        body: Column(
-          children: [
-            CustomTopBar(
-              leadingAction: [
-                CustomTopNavbarElevatedButton(
-                  icon: Icons.arrow_back,
-                  onTab: () => Get.back(),
-                ),
-              ],
-              titleText: "Followers (4K)",
-            ),
-            Expanded(child: ListView.builder(
-              itemBuilder: (context, index) {
-                bool bg = index % 2 == 0;
-                return CustomBox(
-                  child: ProfileHeadShortInfo(
-                    profileUrl: profileUrl,
-                    title: title,
-                    subTitle: subTitle,
-                    endChild: CustomElevatedButton(
-                      border: bg ? Border.all(color: defaultBlack, width: 1, strokeAlign: BorderSide.strokeAlignOutside) : null,
-                      borderRadius: BorderRadius.circular(defaultPadding),
-                      backgroundColor: bg ? Theme.of(context).canvasColor : null,
-                      contentPadding: EdgeInsets.symmetric(horizontal: defaultPadding, vertical: defaultPadding / 4),
-                      child: Text(
-                        bg ? "Following" : "Follow",
-                        style: mediumText.copyWith(color: bg ? defaultBlack : Theme.of(context).canvasColor),
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: SafeArea(
+          child: Column(
+            children: [
+              CustomTopBar(
+                leadingAction: [
+                  CustomTopNavbarElevatedButton(
+                    icon: Icons.arrow_back,
+                    onTab: () => Get.back(),
+                  ),
+                ],
+                titleText: "Followers (4K)",
+              ),
+              Expanded(child: ListView.builder(
+                itemBuilder: (context, index) {
+                  bool bg = index % 2 == 0;
+                  return CustomBox(
+                    child: ProfileHeadShortInfo(
+                      profileUrl: profileUrl,
+                      title: title,
+                      subTitle: subTitle,
+                      endChild: CustomElevatedButton(
+                        border: bg ? Border.all(color: defaultBlack, width: 1, strokeAlign: BorderSide.strokeAlignOutside) : null,
+                        borderRadius: BorderRadius.circular(defaultPadding),
+                        backgroundColor: bg ? Theme.of(context).canvasColor : null,
+                        contentPadding: EdgeInsets.symmetric(horizontal: defaultPadding, vertical: defaultPadding / 4),
+                        child: Text(
+                          bg ? "Following" : "Follow",
+                          style: mediumText.copyWith(color: bg ? defaultBlack : Theme.of(context).canvasColor),
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
-            ))
-          ],
+                  );
+                },
+              ))
+            ],
+          ),
         ),
       ),
     );
