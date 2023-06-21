@@ -4,7 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:social_app/component.dart';
 import 'package:social_app/src/screens/screens/news_feed_screen.dart';
-
+import 'src/screens/screens/introScreen.dart';
+import 'src/screens/screens/ProfileScreen.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
             background: defaultWhite,
           ),
         ),
-        home: const NewsFeedScreen(),
+        home: const ProfilePage(),
       ),
     );
   }
