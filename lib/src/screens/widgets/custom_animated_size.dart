@@ -11,7 +11,7 @@ class CustomAnimatedSize extends StatelessWidget {
     return AnimatedSize(
       alignment: alignment,
       duration: const Duration(milliseconds: defaultDuration),
-      child: child,
+      child: child ?? const SizedBox(),
     );
   }
 }
