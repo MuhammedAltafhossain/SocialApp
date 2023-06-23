@@ -11,9 +11,10 @@ class CustomRoundedButton extends StatelessWidget {
     this.notificationChild,
     this.margin,
     this.backgroundColor,
-    this.hiddenBackground = false,
+    this.hiddenBackgroundGradient = false,
     this.contentPadding,
     this.onLongPress,
+    this.boxShadow,
   });
   final double size;
 
@@ -25,7 +26,8 @@ class CustomRoundedButton extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final Color? backgroundColor;
   final EdgeInsetsGeometry? contentPadding;
-  final bool hiddenBackground;
+  final bool hiddenBackgroundGradient;
+  final List<BoxShadow>? boxShadow;
 
   @override
   Widget build(BuildContext context) {
@@ -39,17 +41,18 @@ class CustomRoundedButton extends StatelessWidget {
             width: size,
             padding: contentPadding,
             decoration: BoxDecoration(
+              boxShadow: boxShadow,
               borderRadius: BorderRadius.circular(100),
               color: backgroundColor,
               border: border,
-              gradient: hiddenBackground
+              gradient: hiddenBackgroundGradient
                   ? null
                   : LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        defaultGradientColor1.withOpacity(hiddenBackground ? 0.1 : 1),
-                        defaultGradientColor2.withOpacity(hiddenBackground ? 0.1 : 1)
+                        defaultGradientColor1.withOpacity(hiddenBackgroundGradient ? 0.1 : 1),
+                        defaultGradientColor2.withOpacity(hiddenBackgroundGradient ? 0.1 : 1)
                       ],
                     ),
             ),
@@ -64,8 +67,8 @@ class CustomRoundedButton extends StatelessWidget {
           ),
           if (notificationChild != null)
             Positioned(
-              right: size / 4,
-              top: size / 1,
+              bottom: 0,
+              right: 0,
               child: notificationChild ?? Container(),
             )
         ],

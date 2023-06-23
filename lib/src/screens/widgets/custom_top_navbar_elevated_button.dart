@@ -35,7 +35,7 @@ class CustomTopNavbarElevatedButton extends StatelessWidget {
       onDone: (_) {
         if (onTab != null) onTab!();
       },
-      child: Icon(icon, color: Theme.of(context).canvasColor),
+      child: Icon(icon, color: Theme.of(context).cardColor),
     );
   }
 }
