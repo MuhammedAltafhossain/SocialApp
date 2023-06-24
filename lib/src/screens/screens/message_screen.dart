@@ -71,42 +71,47 @@ class MessageScreen extends StatelessWidget {
                     ],
                   ),
                   //! Message History
-                  Flexible(
-                    child: ListView.builder(
-                      controller: controller.scrollController,
-                      itemCount: controller.showingMessageMap.length,
-                      itemBuilder: (context, index) {
-                        String date = controller.showingMessageMap.keys.elementAt(index);
-                        Map<String, List<MessageModel>> messages = controller.showingMessageMap.values.elementAt(index);
-                        return StickyHeader(
-                          header: Container(
-                            padding: const EdgeInsets.symmetric(vertical: defaultPadding / 4),
-                            alignment: Alignment.center,
-                            color: Theme.of(context).canvasColor,
-                            child: Text(
-                              date,
-                              style: smallTitle,
-                              textAlign: TextAlign.center,
+                  Expanded(
+                    child: Scaffold(
+                      body: ListView.builder(
+                        reverse: true,
+                        controller: controller.scrollController,
+                        itemCount: controller.showingMessageMap.length,
+                        itemBuilder: (context, index) {
+                          String date = controller.showingMessageMap.keys.elementAt(index);
+                          Map<String, List<MessageModel>> messages = controller.showingMessageMap.values.elementAt(index);
+                          return Obx(
+                            () => StickyHeader(
+                              header: Container(
+                                padding: const EdgeInsets.symmetric(vertical: defaultPadding / 4),
+                                alignment: Alignment.center,
+                                color: Theme.of(context).canvasColor,
+                                child: Text(
+                                  date,
+                                  style: smallTitle,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              content: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: messages.entries
+                                    .map(
+                                      (e) => StickyHeader(
+                                        header: Container(
+                                          padding: const EdgeInsets.only(top: defaultPadding / 2),
+                                          color: Theme.of(context).canvasColor,
+                                          alignment: Alignment.center,
+                                          child: Text(e.key, style: mediumText, textAlign: TextAlign.center),
+                                        ),
+                                        content: MessageOnADay(messages: e.value, mainUserId: "1"),
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
                             ),
-                          ),
-                          content: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: messages.entries
-                                .map(
-                                  (e) => StickyHeader(
-                                    header: Container(
-                                      padding: const EdgeInsets.only(top: defaultPadding / 2),
-                                      color: Theme.of(context).canvasColor,
-                                      alignment: Alignment.center,
-                                      child: Text(e.key, style: mediumText, textAlign: TextAlign.center),
-                                    ),
-                                    content: MessageOnADay(messages: e.value, mainUserId: "1"),
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
                   ),
 
@@ -121,6 +126,7 @@ class MessageScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(defaultPadding / 3),
                               borderSide: const BorderSide(color: defaultGray),
                             ),
+                            onComplete: (value) => controller.sendMessage(),
                             hintText: "Say something",
                           ),
                         ),
@@ -165,81 +171,100 @@ class MessageOnADay extends StatelessWidget {
     return Builder(builder: (_) {
       String runningList = "";
 
-      return Column(
-        children: [
-          for (MessageModel m in messages)
-            Builder(
-              builder: (_) {
-                bool isA = m.userId == mainUserId;
-                bool isSameList = runningList.isEmpty ? false : runningList == m.userId;
-                Widget child = Container(
-                  margin: EdgeInsets.only(
-                    top: isSameList ? 0 : defaultPadding / 2,
-                    left: isA ? defaultPadding : 0,
-                    right: !isA ? defaultPadding : 0,
-                  ),
-                  padding: const EdgeInsets.symmetric(vertical: defaultPadding / 4),
-                  child: Builder(
-                    builder: (_) {
-                      return Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: isA ? MainAxisAlignment.end : MainAxisAlignment.start,
-                        children: [
-                          !isSameList
-                              ? !isA
-                                  ? Padding(
-                                      padding: const EdgeInsets.only(left: defaultPadding / 2),
-                                      child: CustomRoundedButton(
-                                        size: 38,
-                                        child: CustomNetworkImage(url: profileUrl2),
-                                      ),
-                                    )
-                                  : const SizedBox()
-                              : !isA
-                                  ? const SizedBox(
-                                      width: 38 + defaultPadding / 2,
-                                    )
-                                  : const SizedBox(),
-                          Flexible(
-                            child: CustomBox(
-                              constraints: const BoxConstraints(maxWidth: defaultMaxWidth),
-                              margin: const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-                              padding: const EdgeInsets.all(defaultPadding / 2),
-                              backgroundColor: isA ? Theme.of(context).primaryColor : null,
-                              borderRadius: BorderRadius.only(
-                                topLeft: isA ? const Radius.circular(defaultPadding / 2) : Radius.zero,
-                                topRight: !isA ? const Radius.circular(defaultPadding / 2) : Radius.zero,
-                                bottomLeft: const Radius.circular(defaultPadding / 2),
-                                bottomRight: const Radius.circular(defaultPadding / 2),
+      return Obx(
+        () => Column(
+          children: [
+            for (MessageModel m in messages)
+              Builder(
+                builder: (_) {
+                  bool isA = m.userId == mainUserId;
+                  bool isSameList = runningList.isEmpty ? false : runningList == m.userId;
+                  Widget child = Container(
+                    margin: EdgeInsets.only(
+                      top: isSameList ? 0 : defaultPadding / 2,
+                      left: isA ? defaultPadding : 0,
+                      right: !isA ? defaultPadding : 0,
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: defaultPadding / 4),
+                    child: Builder(
+                      builder: (_) {
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: isA ? MainAxisAlignment.end : MainAxisAlignment.start,
+                          children: [
+                            !isSameList
+                                ? !isA
+                                    ? Padding(
+                                        padding: const EdgeInsets.only(left: defaultPadding / 2),
+                                        child: CustomRoundedButton(
+                                          size: 38,
+                                          child: CustomNetworkImage(url: profileUrl2),
+                                        ),
+                                      )
+                                    : const SizedBox()
+                                : !isA
+                                    ? const SizedBox(
+                                        width: 38 + defaultPadding / 2,
+                                      )
+                                    : const SizedBox(),
+                            Flexible(
+                              child: CustomBox(
+                                constraints: const BoxConstraints(maxWidth: defaultMaxWidth),
+                                margin: const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+                                padding: const EdgeInsets.all(defaultPadding / 2),
+                                backgroundColor: isA
+                                    ? m.message.trim().isEmpty
+                                        ? defaultGray.withOpacity(0.2)
+                                        : Theme.of(context).primaryColor
+                                    : m.message.trim().isEmpty
+                                        ? defaultGray.withOpacity(0.2)
+                                        : null,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: isA ? const Radius.circular(defaultPadding / 2) : Radius.zero,
+                                  topRight: !isA ? const Radius.circular(defaultPadding / 2) : Radius.zero,
+                                  bottomLeft: const Radius.circular(defaultPadding / 2),
+                                  bottomRight: const Radius.circular(defaultPadding / 2),
+                                ),
+                                child: Text(
+                                  m.message.trim().isEmpty ? "Message has been deleted." : m.message,
+                                  style: smallTitle.copyWith(
+                                    color: isA
+                                        ? m.message.trim().isEmpty
+                                            ? defaultGray
+                                            : Theme.of(context).cardColor
+                                        : m.message.trim().isEmpty
+                                            ? defaultGray
+                                            : defaultBlack,
+                                  ),
+                                ),
                               ),
-                              child: Text(m.message, style: smallTitle.copyWith(color: isA ? Theme.of(context).cardColor : defaultBlack)),
                             ),
-                          ),
-                          !isSameList
-                              ? isA
-                                  ? Padding(
-                                      padding: const EdgeInsets.only(right: defaultPadding / 2),
-                                      child: CustomRoundedButton(
-                                        size: 38,
-                                        child: CustomNetworkImage(url: profileUrl1),
-                                      ),
-                                    )
-                                  : const SizedBox()
-                              : isA
-                                  ? const SizedBox(
-                                      width: 38 + defaultPadding / 2,
-                                    )
-                                  : const SizedBox(),
-                        ],
-                      );
-                    },
-                  ),
-                );
-                runningList = m.userId;
-                return child;
-              },
-            ),
-        ],
+                            !isSameList
+                                ? isA
+                                    ? Padding(
+                                        padding: const EdgeInsets.only(right: defaultPadding / 2),
+                                        child: CustomRoundedButton(
+                                          size: 38,
+                                          child: CustomNetworkImage(url: profileUrl1),
+                                        ),
+                                      )
+                                    : const SizedBox()
+                                : isA
+                                    ? const SizedBox(
+                                        width: 38 + defaultPadding / 2,
+                                      )
+                                    : const SizedBox(),
+                          ],
+                        );
+                      },
+                    ),
+                  );
+                  runningList = m.userId;
+                  return child;
+                },
+              ),
+          ],
+        ),
       );
     });
   }
