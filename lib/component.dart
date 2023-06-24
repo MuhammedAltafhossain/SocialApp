@@ -77,3 +77,6 @@ final mediumSubTitle = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize
 final largeSubTitle = GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18, color: defaultBlack);
 //* Other
 final followerCount = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 25, color: defaultBlack);
+
+final mediumSizeText = GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 22, color: defaultGray);
+
