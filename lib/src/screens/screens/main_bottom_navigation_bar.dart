@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:social_app/src/screens/screens/news_feed_screen.dart';
 
 import '../../controllers/screens_controllers/bottom_navigation_controller.dart';
+import '../widgets/custom_alive.dart';
 
 class MainBottomNavigationBar extends StatefulWidget {
   const MainBottomNavigationBar({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class _MainBottomNavigationBarState extends State<MainBottomNavigationBar> {
     return Scaffold(
       body: GetBuilder<BottomNavigationController>(
         builder: (_) {
-          return screen[controller.selectedIndex];
+          return CustomAlive(child: screen[controller.selectedIndex]);
         },
       ),
       bottomNavigationBar: GetBuilder<BottomNavigationController>(builder: (_) {

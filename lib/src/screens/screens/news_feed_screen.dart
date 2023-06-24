@@ -52,7 +52,7 @@ class NewsFeedScreen extends StatelessWidget {
                       const SizedBox(
                         height: defaultPadding / 4,
                       ),
-                      Text("Timeline", style: mediumTitle),
+                      Text("Timeline", style: largeSubTitle),
                     ],
                   ),
                 ),
@@ -194,7 +194,7 @@ class NewsFeedScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                )
+                ),
 
                 //News Card
               ],
