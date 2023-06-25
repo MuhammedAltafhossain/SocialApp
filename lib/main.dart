@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:social_app/component.dart';
 
 import 'package:social_app/src/screens/screens/main_wrapper_screen.dart';
+import 'package:social_app/src/screens/screens/message_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
             background: defaultWhite,
           ),
         ),
-        home: const MainScreenWrapper(),
+        home: const MessageScreen(),
       ),
     );
   }
