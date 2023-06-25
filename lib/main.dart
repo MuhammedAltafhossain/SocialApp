@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:social_app/component.dart';
 import 'package:social_app/src/screens/screens/main_wrapper_screen.dart';
-import 'src/screens/screens/comment_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,7 +35,6 @@ class MyApp extends StatelessWidget {
           ),
         ),
         home: const MainScreenWrapper(),
-        home: const CommentScreen(),
       ),
     );
   }

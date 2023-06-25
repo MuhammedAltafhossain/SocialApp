@@ -38,10 +38,6 @@ class CustomBox extends StatelessWidget {
                 style: BorderStyle.solid,
               )
             : null,
-      decoration: BoxDecoration(
-        color: backgroundColor ?? Theme.of(context).canvasColor.withOpacity(backgroundOpacity ?? 1),
-        border: enableBorder ? const BorderDirectional(bottom: BorderSide(color: defaultShadowColor, width: 1)) : null,
-]        borderRadius: borderRadius,
       ),
       child: Material(
         color: Colors.transparent,
@@ -49,7 +45,6 @@ class CustomBox extends StatelessWidget {
           onTap: onTap,
           child: Padding(
             padding: padding,
-            padding: const EdgeInsets.symmetric(horizontal: defaultPadding, vertical: defaultPadding),
             child: child,
           ),
         ),
