@@ -1,5 +1,3 @@
 import 'package:get/get.dart';
 
-class NewsFeedScreenController extends GetxController{
-
-}
+class NewsFeedScreenController extends GetxController {}

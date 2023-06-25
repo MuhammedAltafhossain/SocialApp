@@ -38,6 +38,13 @@ dependencies:
   flutter_screenutil: ^5.8.4
   google_fonts: ^5.0.0
   get: ^4.6.5
+  carousel_slider: ^4.2.1
+  cloud_firestore: ^4.8.1
+  firebase_auth: ^4.6.3
+  shared_preferences: ^2.1.2
+  fluttertoast: ^8.2.2
+  firebase_core: ^2.14.0
+  firebase_messaging: ^14.6.3
   emoji_picker_flutter: ^1.6.1
   intl: ^0.18.1
   sticky_headers: ^0.3.0+2
