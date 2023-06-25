@@ -30,14 +30,9 @@ class CustomBox extends StatelessWidget {
       constraints: constraints,
       margin: margin,
       decoration: BoxDecoration(
-        color: backgroundColor ?? Theme.of(context).cardColor.withOpacity(backgroundOpacity ?? 1),
-        border: enableBorder
-            ? Border.all(
-                color: defaultShadowColor,
-                width: 1,
-                style: BorderStyle.solid,
-              )
-            : null,
+        color: backgroundColor ?? Theme.of(context).canvasColor.withOpacity(backgroundOpacity ?? 1),
+        border: enableBorder ? const BorderDirectional(bottom: BorderSide(color: defaultShadowColor, width: 1)) : null,
+        borderRadius: borderRadius,
       ),
       child: Material(
         color: Colors.transparent,

@@ -47,11 +47,11 @@ class FollowerScreen extends StatelessWidget {
                       endChild: CustomElevatedButton(
                         border: bg ? Border.all(color: defaultBlack, width: 1, strokeAlign: BorderSide.strokeAlignOutside) : null,
                         borderRadius: BorderRadius.circular(defaultPadding),
-                        backgroundColor: bg ? Theme.of(context).canvasColor : null,
+                        backgroundColor: bg ? Theme.of(context).cardColor : null,
                         contentPadding: EdgeInsets.symmetric(horizontal: defaultPadding, vertical: defaultPadding / 4),
                         child: Text(
                           bg ? "Following" : "Follow",
-                          style: mediumText.copyWith(color: bg ? defaultBlack : Theme.of(context).canvasColor),
+                          style: mediumText.copyWith(color: bg ? defaultBlack : Theme.of(context).cardColor),
                         ),
                       ),
                     ),

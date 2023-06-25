@@ -64,12 +64,12 @@ class CommentScreen extends StatelessWidget {
                                     children: [
                                       Icon(
                                         Icons.share_rounded,
-                                        color: Theme.of(context).canvasColor,
+                                        color: Theme.of(context).cardColor,
                                       ),
                                       const SizedBox(width: defaultPadding / 3),
                                       Text(
                                         "8",
-                                        style: mediumText.copyWith(color: Theme.of(context).canvasColor),
+                                        style: mediumText.copyWith(color: Theme.of(context).cardColor),
                                       ),
                                     ],
                                   ),
@@ -83,12 +83,12 @@ class CommentScreen extends StatelessWidget {
                                     children: [
                                       Icon(
                                         Icons.favorite_outline,
-                                        color: Theme.of(context).canvasColor,
+                                        color: Theme.of(context).cardColor,
                                       ),
                                       const SizedBox(width: defaultPadding / 3),
                                       Text(
                                         "8",
-                                        style: mediumText.copyWith(color: Theme.of(context).canvasColor),
+                                        style: mediumText.copyWith(color: Theme.of(context).cardColor),
                                       ),
                                     ],
                                   ),
@@ -101,12 +101,12 @@ class CommentScreen extends StatelessWidget {
                                     children: [
                                       Icon(
                                         Icons.messenger_outline_outlined,
-                                        color: Theme.of(context).canvasColor,
+                                        color: Theme.of(context).cardColor,
                                       ),
                                       const SizedBox(width: defaultPadding / 3),
                                       Text(
                                         "8",
-                                        style: mediumText.copyWith(color: Theme.of(context).canvasColor),
+                                        style: mediumText.copyWith(color: Theme.of(context).cardColor),
                                       ),
                                     ],
                                   ),
@@ -166,11 +166,11 @@ class CommentScreen extends StatelessWidget {
                     ),
                     endingAction: [
                       CustomRoundedButton(
-                        hiddenBackground: true,
+                        hiddenBackgroundGradient: true,
                         onTap: () => Get.to(const FollowerScreen()),
                         child: Icon(
                           Icons.more_vert_outlined,
-                          color: controller.navbarOpacity.value < 0.5 ? Theme.of(context).canvasColor : defaultBlack,
+                          color: controller.navbarOpacity.value < 0.5 ? Theme.of(context).cardColor : defaultBlack,
                         ),
                       )
                     ],

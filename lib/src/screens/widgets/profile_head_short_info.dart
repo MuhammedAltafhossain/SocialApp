@@ -9,6 +9,7 @@ class ProfileHeadShortInfo extends StatelessWidget {
   final String title;
   final String subTitle;
   final Widget? endChild;
+  final bool isActive;
   const ProfileHeadShortInfo({
     super.key,
     required this.profileUrl,
@@ -16,6 +17,7 @@ class ProfileHeadShortInfo extends StatelessWidget {
     required this.subTitle,
     this.onTap,
     this.endChild,
+    this.isActive = false,
   });
 
   @override
@@ -23,6 +25,17 @@ class ProfileHeadShortInfo extends StatelessWidget {
     return Row(
       children: [
         CustomRoundedButton(
+          notificationChild: Container(
+            height: defaultPadding / 1.5,
+            width: defaultPadding / 1.5,
+            decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.circular(100),
+                border: Border.all(
+                  color: Theme.of(context).cardColor,
+                  width: 2,
+                )),
+          ),
           backgroundColor: null,
           // onTap: onTap,
           child: CustomNetworkImage(
