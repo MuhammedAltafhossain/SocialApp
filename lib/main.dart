@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:social_app/component.dart';
+import 'package:social_app/src/screens/screens/SignInScreen.dart';
 import 'src/screens/screens/SignUpScreen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
             background: defaultWhite,
           ),
         ),
-        home: const SignUpPage(),
+        home: const SignInPage(),
       ),
     );
   }

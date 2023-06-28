@@ -136,7 +136,7 @@ class _SignInPageState extends State<SignInPage> {
                         children: [
                           Text(
                             'G',
-                            style: mediumSizeText.copyWith(color: Colors.black),
+                            style: mediumText.copyWith(color: defaultBlack, fontSize: 22),
                           ),
                           const SizedBox(
                             width: 10,
