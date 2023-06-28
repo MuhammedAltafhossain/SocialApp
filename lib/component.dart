@@ -66,25 +66,14 @@ const MaterialColor primarySwatch = MaterialColor(
 
 //! Font
 //* Text
-final largeText = GoogleFonts.poppins(
-    fontWeight: FontWeight.w500, fontSize: 40, color: defaultBlack);
-final mediumText = GoogleFonts.poppins(
-    fontWeight: FontWeight.w400, fontSize: 12, color: defaultGray);
+final largeText = GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 40, color: defaultBlack);
+final mediumText = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 12, color: defaultGray);
 //* Title
-final smallTitle = GoogleFonts.poppins(
-    fontWeight: FontWeight.w500, fontSize: 12, color: defaultBlack);
-final mediumTitle = GoogleFonts.poppins(
-    fontWeight: FontWeight.w500, fontSize: 14, color: defaultBlack);
-final largeTitle = GoogleFonts.poppins(
-    fontWeight: FontWeight.w600, fontSize: 40, color: defaultBlack);
+final smallTitle = GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 12, color: defaultBlack);
+final mediumTitle = GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 14, color: defaultBlack);
+final largeTitle = GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 40, color: defaultBlack);
 //* SubTitle
-final mediumSubTitle = GoogleFonts.poppins(
-    fontWeight: FontWeight.w400, fontSize: 14, color: defaultGray);
-final largeSubTitle = GoogleFonts.poppins(
-    fontWeight: FontWeight.w500, fontSize: 18, color: defaultBlack);
+final mediumSubTitle = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 14, color: defaultGray);
+final largeSubTitle = GoogleFonts.poppins(fontWeight: FontWeight.w500, fontSize: 18, color: defaultBlack);
 //* Other
-final followerCount = GoogleFonts.poppins(
-    fontWeight: FontWeight.w400, fontSize: 25, color: defaultBlack);
-
-final mediumSizeText = GoogleFonts.poppins(
-    fontWeight: FontWeight.w500, fontSize: 22, color: defaultGray);
+final followerCount = GoogleFonts.poppins(fontWeight: FontWeight.w400, fontSize: 25, color: defaultBlack);

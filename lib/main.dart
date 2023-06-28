@@ -6,6 +6,7 @@ import 'package:social_app/component.dart';
 import 'src/screens/screens/SignUpScreen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_core/firebase_core.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
