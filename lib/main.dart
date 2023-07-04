@@ -4,10 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:social_app/component.dart';
-import 'package:social_app/src/screens/screens/news_feed_screen.dart';
-import 'src/screens/screens/introScreen.dart';
-import 'src/screens/screens/ProfileScreen.dart';
-import 'src/screens/screens/SignUpScreen.dart';
+import 'package:social_app/src/screens/screens/SignInScreen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 void main() async {
@@ -42,7 +39,7 @@ class MyApp extends StatelessWidget {
             background: defaultWhite,
           ),
         ),
-        home: const SignUpPage(),
+        home: const SignInPage(),
       ),
     );
   }

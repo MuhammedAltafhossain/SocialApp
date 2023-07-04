@@ -21,7 +21,7 @@ class _SignInPageState extends State<SignInPage> {
   Future<void> signInWithEmailAndPassword(email, password) async {
     try {
       await Auth().signInWithEmailAndPassword(email: email, password: password);
-      await WriteData();
+      //await WriteData();
     } on FirebaseAuthException catch (e) {
       setState(() {
         errorMessage = e.message;
@@ -105,6 +105,9 @@ class _SignInPageState extends State<SignInPage> {
                       label: Text('Email Address',
                           style: TextStyle(color: Colors.greenAccent)),
                     ),
+                    onChanged: (value) {
+                      InputOnChange('email', value);
+                    },
                   ),
                   const SizedBox(
                     height: 20,
@@ -122,6 +125,9 @@ class _SignInPageState extends State<SignInPage> {
                       label: Text('Enter your password',
                           style: TextStyle(color: Colors.greenAccent)),
                     ),
+                    onChanged: (value) {
+                      InputOnChange('password', value);
+                    },
                     obscureText: true,
                   ),
                   const SizedBox(
@@ -149,6 +155,7 @@ class _SignInPageState extends State<SignInPage> {
                     onTap: () async {
                       await Future.delayed(Duration(seconds: 2));
                       FormOnSubmit();
+                      return true;
                     },
                     child: Text(
                       "Sign In",
@@ -199,7 +206,8 @@ class _SignInPageState extends State<SignInPage> {
                         print(isSuccess);
                       },
                       onTap: () async {
-                        await Future.delayed(Duration(seconds: 2));
+                        print('sign in w google btn pressed!');
+                        await Future.delayed(const Duration(seconds: 2));
                         return false;
                       },
                       child: Row(
