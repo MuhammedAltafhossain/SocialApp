@@ -1,11 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:social_app/src/screens/widgets/custom_elevated_button_widget.dart';
 import '../../../component.dart';
-import '../../../firebase/Auth.dart';
-import '../../../utility/utility.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -62,7 +57,6 @@ class _SignInPageState extends State<SignInPage> {
       // Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
     }
   }
-
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -109,21 +103,21 @@ class _SignInPageState extends State<SignInPage> {
                       InputOnChange('email', value);
                     },
                   ),
+                      style: mediumTitle,
+                      decoration: const InputDecoration(
+                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.grey), borderRadius: BorderRadius.all(Radius.circular(7))),
+                        focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.greenAccent), borderRadius: BorderRadius.all(Radius.circular(7))),
+                        label: Text('Email Address', style: TextStyle(color: Colors.greenAccent)),
+                      )),
                   const SizedBox(
                     height: 20,
                   ),
                   TextFormField(
                     style: mediumTitle,
                     decoration: const InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1, color: Colors.grey),
-                          borderRadius: BorderRadius.all(Radius.circular(7))),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(width: 1, color: Colors.greenAccent),
-                          borderRadius: BorderRadius.all(Radius.circular(7))),
-                      label: Text('Enter your password',
-                          style: TextStyle(color: Colors.greenAccent)),
+                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.grey), borderRadius: BorderRadius.all(Radius.circular(7))),
+                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.greenAccent), borderRadius: BorderRadius.all(Radius.circular(7))),
+                      label: Text('Enter your password', style: TextStyle(color: Colors.greenAccent)),
                     ),
                     onChanged: (value) {
                       InputOnChange('password', value);
@@ -145,8 +139,7 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                   CustomElevatedButton(
                     iconColor: Colors.deepOrange,
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                    margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
                     height: 58,
                     expanded: true,
                     onDone: (isSuccess) {
@@ -156,6 +149,7 @@ class _SignInPageState extends State<SignInPage> {
                       await Future.delayed(Duration(seconds: 2));
                       FormOnSubmit();
                       return true;
+              
                     },
                     child: Text(
                       "Sign In",
@@ -191,15 +185,11 @@ class _SignInPageState extends State<SignInPage> {
                     height: 25,
                   ),
                   CustomElevatedButton(
-                      border: Border.all(
-                          width: 1,
-                          color: defaultGray,
-                          strokeAlign: BorderSide.strokeAlignOutside),
+                      border: Border.all(width: 1, color: defaultGray, strokeAlign: BorderSide.strokeAlignOutside),
                       borderRadius: const BorderRadius.all(Radius.circular(7)),
                       backgroundColor: Colors.white,
                       iconColor: Colors.deepOrange,
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 0, vertical: 5),
+                      margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
                       height: 58,
                       expanded: true,
                       onDone: (isSuccess) {
@@ -215,7 +205,7 @@ class _SignInPageState extends State<SignInPage> {
                         children: [
                           Text(
                             'G',
-                            style: mediumSizeText.copyWith(color: Colors.black),
+                            style: mediumText.copyWith(color: defaultBlack, fontSize: 22),
                           ),
                           const SizedBox(
                             width: 10,
@@ -243,8 +233,7 @@ class _SignInPageState extends State<SignInPage> {
                         onTap: () {},
                         child: Text(
                           "Sign Up",
-                          style:
-                              mediumTitle.copyWith(color: Colors.greenAccent),
+                          style: mediumTitle.copyWith(color: Colors.greenAccent),
                         ),
                       )
                     ],

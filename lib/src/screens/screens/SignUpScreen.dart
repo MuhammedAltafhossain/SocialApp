@@ -25,8 +25,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Future<void> createUserWithEmailAndPassword(email, password) async {
     try {
-      await Auth()
-          .createUserWithEmailAndPassword(email: email, password: password);
+      await Auth().createUserWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       setState(() {
         errorMessage = e.message;
@@ -63,8 +62,7 @@ class _SignUpPageState extends State<SignUpPage> {
     } else if (FormValues['password1'] != FormValues['password2']) {
       ErrorToast('Password do not match!!');
     } else {
-      await createUserWithEmailAndPassword(
-          FormValues['email'], FormValues['password1']);
+      await createUserWithEmailAndPassword(FormValues['email'], FormValues['password1']);
       await addUserDetails();
       SuccessToast("Registration Successful!");
       // Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
@@ -104,15 +102,9 @@ class _SignUpPageState extends State<SignUpPage> {
                     style: mediumTitle,
                     decoration: const InputDecoration(
                       constraints: BoxConstraints(maxHeight: 55),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1, color: Colors.grey),
-                          borderRadius: BorderRadius.all(Radius.circular(7))),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(width: 1, color: Colors.greenAccent),
-                          borderRadius: BorderRadius.all(Radius.circular(7))),
-                      label: Text('Full Name',
-                          style: TextStyle(color: Colors.greenAccent)),
+                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.grey), borderRadius: BorderRadius.all(Radius.circular(7))),
+                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.greenAccent), borderRadius: BorderRadius.all(Radius.circular(7))),
+                      label: Text('Full Name', style: TextStyle(color: Colors.greenAccent)),
                     ),
                     onChanged: (value) {
                       InputOnChange('fname', value);
@@ -125,15 +117,9 @@ class _SignUpPageState extends State<SignUpPage> {
                     style: mediumTitle,
                     decoration: const InputDecoration(
                       constraints: BoxConstraints(maxHeight: 55),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1, color: Colors.grey),
-                          borderRadius: BorderRadius.all(Radius.circular(7))),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(width: 1, color: Colors.greenAccent),
-                          borderRadius: BorderRadius.all(Radius.circular(7))),
-                      label: Text('Username',
-                          style: TextStyle(color: Colors.greenAccent)),
+                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.grey), borderRadius: BorderRadius.all(Radius.circular(7))),
+                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.greenAccent), borderRadius: BorderRadius.all(Radius.circular(7))),
+                      label: Text('Username', style: TextStyle(color: Colors.greenAccent)),
                     ),
                     onChanged: (value) {
                       InputOnChange('username', value);
@@ -146,15 +132,9 @@ class _SignUpPageState extends State<SignUpPage> {
                     style: mediumTitle,
                     decoration: const InputDecoration(
                       constraints: BoxConstraints(maxHeight: 55),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1, color: Colors.grey),
-                          borderRadius: BorderRadius.all(Radius.circular(7))),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(width: 1, color: Colors.greenAccent),
-                          borderRadius: BorderRadius.all(Radius.circular(7))),
-                      label: Text('Email Address',
-                          style: TextStyle(color: Colors.greenAccent)),
+                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.grey), borderRadius: BorderRadius.all(Radius.circular(7))),
+                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.greenAccent), borderRadius: BorderRadius.all(Radius.circular(7))),
+                      label: Text('Email Address', style: TextStyle(color: Colors.greenAccent)),
                     ),
                     onChanged: (value) {
                       InputOnChange('email', value);
@@ -167,15 +147,9 @@ class _SignUpPageState extends State<SignUpPage> {
                     style: mediumTitle,
                     decoration: const InputDecoration(
                       constraints: BoxConstraints(maxHeight: 55),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1, color: Colors.grey),
-                          borderRadius: BorderRadius.all(Radius.circular(7))),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(width: 1, color: Colors.greenAccent),
-                          borderRadius: BorderRadius.all(Radius.circular(7))),
-                      label: Text('Enter your password',
-                          style: TextStyle(color: Colors.greenAccent)),
+                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.grey), borderRadius: BorderRadius.all(Radius.circular(7))),
+                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.greenAccent), borderRadius: BorderRadius.all(Radius.circular(7))),
+                      label: Text('Enter your password', style: TextStyle(color: Colors.greenAccent)),
                     ),
                     onChanged: (value) {
                       InputOnChange('password1', value);
@@ -189,15 +163,9 @@ class _SignUpPageState extends State<SignUpPage> {
                     style: mediumTitle,
                     decoration: const InputDecoration(
                       constraints: BoxConstraints(maxHeight: 55),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(width: 1, color: Colors.grey),
-                          borderRadius: BorderRadius.all(Radius.circular(7))),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(width: 1, color: Colors.greenAccent),
-                          borderRadius: BorderRadius.all(Radius.circular(7))),
-                      label: Text('Enter your password again',
-                          style: TextStyle(color: Colors.greenAccent)),
+                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.grey), borderRadius: BorderRadius.all(Radius.circular(7))),
+                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.greenAccent), borderRadius: BorderRadius.all(Radius.circular(7))),
+                      label: Text('Enter your password again', style: TextStyle(color: Colors.greenAccent)),
                     ),
                     obscureText: true,
                     onChanged: (value) {
@@ -209,8 +177,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   CustomElevatedButton(
                     iconColor: Colors.deepOrange,
-                    margin:
-                        const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                    margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
                     height: 50,
                     expanded: true,
                     onDone: (isSuccess) {
@@ -254,15 +221,11 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 20,
                   ),
                   CustomElevatedButton(
-                      border: Border.all(
-                          width: 1,
-                          color: defaultGray,
-                          strokeAlign: BorderSide.strokeAlignOutside),
+                      border: Border.all(width: 1, color: defaultGray, strokeAlign: BorderSide.strokeAlignOutside),
                       borderRadius: const BorderRadius.all(Radius.circular(7)),
                       backgroundColor: Colors.white,
                       iconColor: Colors.deepOrange,
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 0, vertical: 5),
+                      margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
                       height: 50,
                       expanded: true,
                       onDone: (isSuccess) {
@@ -277,7 +240,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         children: [
                           Text(
                             'G',
-                            style: mediumSizeText.copyWith(color: Colors.black),
+                            style: mediumText.copyWith(color: defaultBlack, fontSize: 22),
                           ),
                           const SizedBox(
                             width: 10,
@@ -305,8 +268,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         onTap: () {},
                         child: Text(
                           "Sign in",
-                          style:
-                              mediumTitle.copyWith(color: Colors.greenAccent),
+                          style: mediumTitle.copyWith(color: Colors.greenAccent),
                         ),
                       )
                     ],

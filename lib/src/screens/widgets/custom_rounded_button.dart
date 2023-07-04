@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:social_app/component.dart';
 
 class CustomRoundedButton extends StatelessWidget {
   const CustomRoundedButton({
@@ -10,15 +11,23 @@ class CustomRoundedButton extends StatelessWidget {
     this.notificationChild,
     this.margin,
     this.backgroundColor,
+    this.hiddenBackgroundGradient = false,
+    this.contentPadding,
+    this.onLongPress,
+    this.boxShadow,
   });
   final double size;
 
   final void Function()? onTap;
+  final void Function()? onLongPress;
   final BoxBorder? border;
   final Widget? child;
   final Widget? notificationChild;
   final EdgeInsetsGeometry? margin;
   final Color? backgroundColor;
+  final EdgeInsetsGeometry? contentPadding;
+  final bool hiddenBackgroundGradient;
+  final List<BoxShadow>? boxShadow;
 
   @override
   Widget build(BuildContext context) {
@@ -28,25 +37,38 @@ class CustomRoundedButton extends StatelessWidget {
         children: [
           Container(
             clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(200),
-              color: backgroundColor ??
-                  Theme.of(context).shadowColor.withOpacity(0.5),
-            ),
             height: size,
             width: size,
+            padding: contentPadding,
+            decoration: BoxDecoration(
+              boxShadow: boxShadow,
+              borderRadius: BorderRadius.circular(100),
+              color: backgroundColor,
+              border: border,
+              gradient: hiddenBackgroundGradient
+                  ? null
+                  : LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        defaultGradientColor1.withOpacity(hiddenBackgroundGradient ? 0.1 : 1),
+                        defaultGradientColor2.withOpacity(hiddenBackgroundGradient ? 0.1 : 1)
+                      ],
+                    ),
+            ),
             child: Material(
               color: Colors.transparent,
               child: InkWell(
                 onTap: onTap,
+                onLongPress: onLongPress,
                 child: child,
               ),
             ),
           ),
           if (notificationChild != null)
             Positioned(
-              right: size / 4,
-              top: size / 1,
+              bottom: 0,
+              right: 0,
               child: notificationChild ?? Container(),
             )
         ],

@@ -45,6 +45,9 @@ dependencies:
   fluttertoast: ^8.2.2
   firebase_core: ^2.14.0
   firebase_messaging: ^14.6.3
+  emoji_picker_flutter: ^1.6.1
+  intl: ^0.18.1
+  sticky_headers: ^0.3.0+2
 
 dev_dependencies:
   flutter_test:
