@@ -10,6 +10,53 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  String? errorMessage;
+  Map<String, String> FormValues = {'email': "", "password": ""};
+
+  Future<void> signInWithEmailAndPassword(email, password) async {
+    try {
+      await Auth().signInWithEmailAndPassword(email: email, password: password);
+      //await WriteData();
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorMessage = e.message;
+        ErrorToast(errorMessage);
+      });
+    }
+  }
+
+  InputOnChange(key1, value1) {
+    FormValues.update(key1, (value) => value1);
+  }
+
+  WriteData() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final db = FirebaseFirestore.instance;
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+    final uid = user?.uid;
+    String usertype = '';
+    print(uid);
+    await db.collection('users').doc(uid).get().then((DocumentSnapshot doc) {
+      final data = doc.data() as Map<String, dynamic>;
+      print(data);
+      usertype = data['usertype'];
+    });
+    await prefs.setString('usertype', usertype);
+  }
+
+  FormOnSubmit() async {
+    if (FormValues['email'] == '') {
+      ErrorToast('Email cannot be empty!!');
+    } else if (FormValues['password'] == '') {
+      ErrorToast('Password cannot be empty!!');
+    } else {
+      await signInWithEmailAndPassword(
+          FormValues['email'], FormValues['password']);
+      SuccessToast('Sign in Successful!');
+      // Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -40,6 +87,22 @@ class _SignInPageState extends State<SignInPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextFormField(
+                    style: mediumTitle,
+                    decoration: const InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(width: 1, color: Colors.grey),
+                          borderRadius: BorderRadius.all(Radius.circular(7))),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(width: 1, color: Colors.greenAccent),
+                          borderRadius: BorderRadius.all(Radius.circular(7))),
+                      label: Text('Email Address',
+                          style: TextStyle(color: Colors.greenAccent)),
+                    ),
+                    onChanged: (value) {
+                      InputOnChange('email', value);
+                    },
+                  ),
                       style: mediumTitle,
                       decoration: const InputDecoration(
                         enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.grey), borderRadius: BorderRadius.all(Radius.circular(7))),
@@ -56,6 +119,9 @@ class _SignInPageState extends State<SignInPage> {
                       focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.greenAccent), borderRadius: BorderRadius.all(Radius.circular(7))),
                       label: Text('Enter your password', style: TextStyle(color: Colors.greenAccent)),
                     ),
+                    onChanged: (value) {
+                      InputOnChange('password', value);
+                    },
                     obscureText: true,
                   ),
                   const SizedBox(
@@ -81,7 +147,9 @@ class _SignInPageState extends State<SignInPage> {
                     },
                     onTap: () async {
                       await Future.delayed(Duration(seconds: 2));
-                      return false;
+                      FormOnSubmit();
+                      return true;
+              
                     },
                     child: Text(
                       "Sign In",
@@ -128,7 +196,8 @@ class _SignInPageState extends State<SignInPage> {
                         print(isSuccess);
                       },
                       onTap: () async {
-                        await Future.delayed(Duration(seconds: 2));
+                        print('sign in w google btn pressed!');
+                        await Future.delayed(const Duration(seconds: 2));
                         return false;
                       },
                       child: Row(
