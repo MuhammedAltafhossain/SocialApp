@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:social_app/src/screens/screens/SignInScreen.dart';
 import 'package:social_app/src/screens/widgets/custom_elevated_button_widget.dart';
 import '../../../component.dart';
 import '../../../firebase/Auth.dart';
@@ -265,10 +267,13 @@ class _SignUpPageState extends State<SignUpPage> {
                         width: 5,
                       ),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(const SignInPage());
+                        },
                         child: Text(
                           "Sign in",
-                          style: mediumTitle.copyWith(color: Colors.greenAccent),
+                          style:
+                              mediumTitle.copyWith(color: Colors.greenAccent),
                         ),
                       )
                     ],

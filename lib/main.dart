@@ -4,11 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:social_app/component.dart';
 import 'package:social_app/src/screens/screens/SignInScreen.dart';
-import 'src/screens/screens/SignUpScreen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:social_app/src/screens/screens/message/message_list_screen.dart';
-import 'package:social_app/src/screens/screens/message/message_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,7 +39,7 @@ class MyApp extends StatelessWidget {
             background: defaultWhite,
           ),
         ),
-        home: const MessageListScreen(),
+        home: const SignInPage(),
       ),
     );
   }

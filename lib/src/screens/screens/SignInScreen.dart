@@ -1,6 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:social_app/src/screens/screens/SignUpScreen.dart';
+import 'package:social_app/src/screens/screens/main_wrapper_screen.dart';
 import 'package:social_app/src/screens/widgets/custom_elevated_button_widget.dart';
 import '../../../component.dart';
+import '../../../firebase/Auth.dart';
+import '../../../utility/utility.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -53,10 +61,10 @@ class _SignInPageState extends State<SignInPage> {
     } else {
       await signInWithEmailAndPassword(
           FormValues['email'], FormValues['password']);
-      SuccessToast('Sign in Successful!');
-      // Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+      Get.offAll(const MainScreenWrapper());
     }
   }
+
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -103,12 +111,6 @@ class _SignInPageState extends State<SignInPage> {
                       InputOnChange('email', value);
                     },
                   ),
-                      style: mediumTitle,
-                      decoration: const InputDecoration(
-                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.grey), borderRadius: BorderRadius.all(Radius.circular(7))),
-                        focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.greenAccent), borderRadius: BorderRadius.all(Radius.circular(7))),
-                        label: Text('Email Address', style: TextStyle(color: Colors.greenAccent)),
-                      )),
                   const SizedBox(
                     height: 20,
                   ),
@@ -146,10 +148,9 @@ class _SignInPageState extends State<SignInPage> {
                       print(isSuccess);
                     },
                     onTap: () async {
-                      await Future.delayed(Duration(seconds: 2));
+                      await Future.delayed(const Duration(seconds: 2));
                       FormOnSubmit();
                       return true;
-              
                     },
                     child: Text(
                       "Sign In",
@@ -230,10 +231,13 @@ class _SignInPageState extends State<SignInPage> {
                         width: 5,
                       ),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(const SignUpPage());
+                        },
                         child: Text(
                           "Sign Up",
-                          style: mediumTitle.copyWith(color: Colors.greenAccent),
+                          style:
+                              mediumTitle.copyWith(color: Colors.greenAccent),
                         ),
                       )
                     ],

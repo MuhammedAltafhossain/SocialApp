@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:social_app/component.dart';
 import 'package:social_app/src/models/app_classes/screen_model.dart';
 import 'package:social_app/src/screens/screens/followers_screen.dart';
-import 'package:social_app/src/screens/screens/message_screen.dart';
 import 'package:social_app/src/screens/screens/news_feed_screen.dart';
 
+import '../../screens/screens/message/message_screen.dart';
 import '../../screens/screens/notification_screen_design.dart';
 
 class MainScreenWrapperController extends GetxController {
@@ -22,7 +22,11 @@ class MainScreenWrapperController extends GetxController {
         label: "Notification",
         icons: Icons.notifications),
     ScreenModel(
-        page: const MessageScreen(), label: "Message", icons: Icons.message),
+        page: const MessageScreen(
+          messageId: '',
+        ),
+        label: "Message",
+        icons: Icons.message),
   ];
 
   //navigation
