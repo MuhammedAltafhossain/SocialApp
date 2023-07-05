@@ -4,7 +4,7 @@ import 'package:social_app/src/models/pojo_classes/message_model.dart';
 import 'package:social_app/src/screens/widgets/network_image.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:social_app/component.dart';
-import 'package:social_app/src/controllers/screens_controllers/message_screen_controller.dart';
+import 'package:social_app/src/controllers/screens_controllers/message/message_screen_controller.dart';
 import 'package:social_app/src/screens/widgets/custom_box.dart';
 import 'package:social_app/src/screens/widgets/custom_message_tile.dart';
 import 'package:social_app/src/screens/widgets/custom_rounded_button.dart';
@@ -14,7 +14,8 @@ import 'package:social_app/src/screens/widgets/custom_top_navbar_elevated_button
 import 'package:social_app/src/screens/widgets/profile_head_short_info.dart';
 
 class MessageScreen extends StatelessWidget {
-  const MessageScreen({super.key});
+  final String messageId;
+  const MessageScreen({super.key, required this.messageId});
 
   final String profileUrl1 = "https://s3-alpha-sig.figma.com/img/9ffb/c5ae/c9c30c0248c3731569b1f7170833a931?Expires=1687737600&Signature=lCJV-i9fUFSrTE2jNmtuDxIfsl50cseN~r56udOJ6rfubFz~zJC6NcZQOJMngpngMfHTMyj3eB~pzKQV7419SN-IRx2TrAPnd0cWzOJpk44yWPi6degkIXP7weRn8KdwVWKaUxu7NaW2TFXj~Dlsj0dN1c9XCrl~bHLEJRsN5-MPgZukOTWCfpV-VmLIiUONuZvhl0-Kn~~QHxTFLKY1X1yN9b8tqYQHg8UBEQJzidAmSc6cFdXIY8A6D8A-0d96lC5FH8oiHeoAuQaHTJZepzvxI1-F1hgPj75bLJ~dyBagp~AhzuhmgWvqJ9tho3-8oZjeCVsDcpdxznFwokOAOQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4";
   final String profileUrl2 = "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
@@ -24,7 +25,7 @@ class MessageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<MessageScreenController>(
-      init: MessageScreenController(),
+      init: MessageScreenController(messageId: messageId),
       initState: (state) {},
       builder: (controller) {
         return Scaffold(

@@ -9,12 +9,20 @@ import 'package:social_app/src/models/pojo_classes/message_model.dart';
 class MessageScreenController extends GetxController {
   final TextEditingController textEditingController = TextEditingController();
   final ScrollController scrollController = ScrollController();
+  final String messageId;
+
+  MessageScreenController({required this.messageId});
+
   String userId = "1";
   @override
   onInit() {
+    print(messageId);
     super.onInit();
     loadMessage();
   }
+
+  @override
+  onClose() {}
 
   List<MessageModel> messages = [];
   RxBool isLoading = false.obs;
