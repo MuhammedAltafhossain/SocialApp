@@ -38,6 +38,9 @@ dependencies:
   flutter_screenutil: ^5.8.4
   google_fonts: ^5.0.0
   get: ^4.6.5
+  emoji_picker_flutter: ^1.6.1
+  intl: ^0.18.1
+  sticky_headers: ^0.3.0+2
 
 dev_dependencies:
   flutter_test:

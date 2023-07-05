@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:social_app/component.dart';
+import 'package:social_app/src/screens/screens/message/message_list_screen.dart';
+import 'package:social_app/src/screens/screens/message/message_screen.dart';
 
 import 'src/screens/screens/comment_screen.dart';
 
@@ -29,13 +31,13 @@ class MyApp extends StatelessWidget {
         }),
         theme: ThemeData(
           primarySwatch: primarySwatch,
-          canvasColor: defaultWhite,
+          cardColor: defaultWhite,
           shadowColor: defaultShadowColor,
           colorScheme: ColorScheme.fromSwatch().copyWith(
             background: defaultWhite,
           ),
         ),
-        home: const CommentScreen(),
+        home: const MessageListScreen(),
       ),
     );
   }
