@@ -3,14 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:social_app/component.dart';
-import 'package:social_app/src/screens/screens/SignInScreen.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:social_app/src/controllers/data_controllers/data_controller.dart';
+import 'package:social_app/src/controllers/data_controllers/firebase_controller.dart';
+import 'package:social_app/src/controllers/data_controllers/local_data_controller.dart';
+import 'package:social_app/src/screens/screens/main_screen_wrapper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  await FirebaseMessaging.instance.requestPermission();
   runApp(const MyApp());
 }
 
@@ -39,7 +38,7 @@ class MyApp extends StatelessWidget {
             background: defaultWhite,
           ),
         ),
-        home: const SignInPage(),
+        home: const MainScreenWrapper(),
       ),
     );
   }
@@ -47,5 +46,9 @@ class MyApp extends StatelessWidget {
 
 class InitializedBinding extends Bindings {
   @override
-  void dependencies() {}
+  void dependencies() {
+    Get.put(LocalDataController());
+    Get.put(FirebaseController());
+    Get.put(DataController());
+  }
 }

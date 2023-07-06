@@ -1,44 +1,66 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:social_app/component.dart';
-import 'package:social_app/src/models/app_classes/screen_model.dart';
-import 'package:social_app/src/screens/screens/followers_screen.dart';
-import 'package:social_app/src/screens/screens/news_feed_screen.dart';
-
-import '../../screens/screens/message/message_screen.dart';
-import '../../screens/screens/notification_screen_design.dart';
+import 'package:social_app/src/controllers/data_controllers/data_controller.dart';
+import 'package:social_app/src/screens/screens/intro_screen.dart';
+import 'package:social_app/src/screens/screens/main_screen_wrapper.dart';
+import 'package:social_app/src/screens/screens/user/signIn_screen.dart';
 
 class MainScreenWrapperController extends GetxController {
-  RxInt selectedIndex = 0.obs;
+  final DataController _dataController = Get.find();
+  RxBool isInitApp = false.obs;
   final PageController pageController = PageController();
 
-  List<ScreenModel> pages = [
-    ScreenModel(
-        page: const NewsFeedScreen(), label: "News Feed", icons: Icons.home),
-    ScreenModel(
-        page: const FollowerScreen(), label: "Friends", icons: Icons.person),
-    ScreenModel(
-        page: const NotificationScreen(),
-        label: "Notification",
-        icons: Icons.notifications),
-    ScreenModel(
-        page: const MessageScreen(
-          messageId: '',
-        ),
-        label: "Message",
-        icons: Icons.message),
+  List<Widget> pages = [
+    Container(color: defaultWhite, child: const SafeArea(child: Center(child: CircularProgressIndicator(color: primarySwatch)))),
+    IntroPage(),
+    SignInPage(),
+    MainScreenWrapper(),
   ];
 
-  //navigation
-  void changeIndex(int index) {
-    selectedIndex.value = index;
-    pageController.animateToPage(selectedIndex.value, duration: const Duration(milliseconds: defaultDuration), curve: Curves.linear);
+  @override
+  void onInit() {
+    super.onInit();
+    _dataController.initApp().then((_) {
+      isInitApp.value = true;
+      _movePage();
+      // _dataController.appData.value = _dataController.appData.value.copyWith(showOnBoardScreen: true); //! For test
+    });
+
+    _dataController.user.listen((_) => _movePage());
+    _dataController.appData.listen((_) => _movePage());
   }
 
-  bool goBack() {
-    if (selectedIndex.value == 0) return true;
-
-    changeIndex(0);
-    return false;
+  _movePage() {
+    print(_dataController.appData.value.toString());
+    if (isInitApp.value) {
+      // when logout
+      if (_dataController.user.value == null) {
+        // When showOnBoardScreen = true
+        if (_dataController.appData.value.showOnBoardScreen) {
+          if (kDebugMode) print("(Listener) MainScreenWrapperController: Moving to IntroPage");
+          pageController.animateToPage(
+            1,
+            duration: const Duration(milliseconds: defaultDuration),
+            curve: Curves.linear,
+          );
+        } else {
+          if (kDebugMode) print("(Listener) MainScreenWrapperController: Moving to SignInPage");
+          pageController.animateToPage(
+            2,
+            duration: const Duration(milliseconds: defaultDuration),
+            curve: Curves.linear,
+          );
+        }
+      } else {
+        if (kDebugMode) print("(Listener) MainScreenWrapperController: Moving to MainScreenWrapper");
+        pageController.animateToPage(
+          3,
+          duration: const Duration(milliseconds: defaultDuration),
+          curve: Curves.linear,
+        );
+      }
+    }
   }
 }

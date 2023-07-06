@@ -54,6 +54,9 @@ class CustomTextFormField extends StatefulWidget {
   final TextInputType keyboardType;
   final String? initialValue;
   final bool fullTextSelection;
+  final TextStyle? labelStyle;
+  final TextStyle? notSelectedLabelStyle;
+  final Function(bool isFocused)? onFocusChange;
   const CustomTextFormField({
     Key? key,
     this.height = 48,
@@ -106,6 +109,9 @@ class CustomTextFormField extends StatefulWidget {
     this.onChanged,
     this.focusNode,
     this.fullTextSelection = true,
+    this.labelStyle,
+    this.notSelectedLabelStyle,
+    this.onFocusChange,
   }) : super(key: key);
 
   @override
@@ -121,6 +127,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   bool firstTimeTap = false;
   List<String> _searchProductList = [];
   Timer? _debounce;
+  bool isFocused = false;
 
   @override
   void initState() {
@@ -166,120 +173,127 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: widget.height,
-      child: TextFormField(
-        controller: textEditingController,
-        focusNode: widget.focusNode,
-        textCapitalization: widget.textCapitalization,
-        keyboardType: widget.keyboardType,
-        minLines: widget.minLines,
-        maxLines: widget.maxLines,
-        maxLength: widget.maxLength,
-        textAlign: widget.textAlign,
-        autofocus: widget.autofocus,
-        autocorrect: widget.autocorrect,
-        enabled: widget.enabled,
-        readOnly: widget.readOnly,
-        cursorColor: widget.cursorColor,
-        obscureText: widget.obscureText,
-        obscuringCharacter: widget.obscuringCharacter,
-        autofillHints: widget.autofillHints,
-        style: widget.style ?? TextStyle(color: Theme.of(context).primaryColor),
-        onEditingComplete: () {
-          if (widget.onComplete != null) widget.onComplete!(textEditingController.text);
+      child: Focus(
+        onFocusChange: (value) {
+          setState(() => isFocused = value);
+          if (widget.onFocusChange != null) widget.onFocusChange!(value);
         },
-        onTapOutside: (PointerDownEvent pointerDownEvent) {
-          if (widget.onTapOutside != null) widget.onTapOutside!(pointerDownEvent);
-          firstTimeTap = false;
-        },
-        onChanged: (value) async {
-          if (widget.onChanged != null) {
-            widget.onChanged!(value);
-          }
+        child: TextFormField(
+          controller: textEditingController,
+          focusNode: widget.focusNode,
+          textCapitalization: widget.textCapitalization,
+          keyboardType: widget.keyboardType,
+          minLines: widget.minLines,
+          maxLines: widget.maxLines,
+          maxLength: widget.maxLength,
+          textAlign: widget.textAlign,
+          autofocus: widget.autofocus,
+          autocorrect: widget.autocorrect,
+          enabled: widget.enabled,
+          readOnly: widget.readOnly,
+          cursorColor: widget.cursorColor ?? Theme.of(context).primaryColor,
+          obscureText: widget.obscureText,
+          obscuringCharacter: widget.obscuringCharacter,
+          autofillHints: widget.autofillHints,
+          style: widget.style ?? TextStyle(color: Theme.of(context).primaryColor),
+          onEditingComplete: () {
+            if (widget.onComplete != null) widget.onComplete!(textEditingController.text);
+          },
+          onTapOutside: (PointerDownEvent pointerDownEvent) {
+            if (widget.onTapOutside != null) widget.onTapOutside!(pointerDownEvent);
+            firstTimeTap = false;
+          },
+          onChanged: (value) async {
+            if (widget.onChanged != null) {
+              widget.onChanged!(value);
+            }
 
-          if (widget.onChangedProcessing != null) {
-            if (_debounce?.isActive ?? false) _debounce?.cancel();
-            _debounce = Timer(widget.onChangeDebouncer, () async {
-              _searchProductList.add(value);
-              while (_searchProductList.isNotEmpty && value.isNotEmpty) {
-                if (isIdle) {
-                  String searchingProduct = _searchProductList.last;
-                  _searchProductList = [];
-                  if (mounted) setState(() => isIdle = false);
-                  await widget.onChangedProcessing!(searchingProduct);
-                  if (mounted) setState(() => isIdle = true);
+            if (widget.onChangedProcessing != null) {
+              if (_debounce?.isActive ?? false) _debounce?.cancel();
+              _debounce = Timer(widget.onChangeDebouncer, () async {
+                _searchProductList.add(value);
+                while (_searchProductList.isNotEmpty && value.isNotEmpty) {
+                  if (isIdle) {
+                    String searchingProduct = _searchProductList.last;
+                    _searchProductList = [];
+                    if (mounted) setState(() => isIdle = false);
+                    await widget.onChangedProcessing!(searchingProduct);
+                    if (mounted) setState(() => isIdle = true);
+                  }
                 }
-              }
-            });
-          }
+              });
+            }
 
-          if (error) {
-            hintText = widget.hintText;
-            error = false;
-          }
-          if (mounted) setState(() {});
-        },
-        onTap: () {
-          if (widget.fullTextSelection && !firstTimeTap) {
-            textEditingController.selection = TextSelection(
-              baseOffset: 0,
-              extentOffset: textEditingController.value.text.length,
-            );
-            firstTimeTap = true;
-          }
-          if (widget.onTap != null) widget.onTap!();
-          if (error) {
-            hintText = widget.hintText;
-            error = false;
-          }
-          if (mounted) setState(() {});
-        },
-        validator: (value) {
-          if (widget.validator == null || widget.validator!(value) == null) return null;
-          error = true;
-          textEditingController.clear();
-          hintText = widget.validator!(value);
-          if (mounted) setState(() {});
-          return "";
-        },
-        decoration: InputDecoration(
-          label: widget.label,
-          labelText: widget.labelText,
-          floatingLabelBehavior: widget.floatingLabelBehavior,
-          hintText: hintText,
-          prefix: widget.prefix,
-          suffix: widget.suffix,
-          prefixIcon: showLoadingIcon(widget.showPrefixLoadingIcon) ?? widget.prefixIcon,
-          suffixIcon: showLoadingIcon(widget.showSuffixLoadingIcon) ?? widget.suffixIcon,
-          filled: widget.fillColor == null ? false : true,
-          fillColor: widget.fillColor,
-          hintStyle: widget.hintStyle ?? TextStyle(color: error ? Theme.of(context).colorScheme.error : defaultGray),
-          errorStyle: widget.errorStyle ?? const TextStyle(height: 0),
-          contentPadding: widget.contentPadding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          enabledBorder: widget.enabledBorder ??
-              OutlineInputBorder(
-                borderRadius: borderRadius,
-                borderSide: BorderSide(width: 2, color: Theme.of(context).primaryColor),
-              ),
-          focusedBorder: widget.focusedBorder ??
-              OutlineInputBorder(
-                borderRadius: borderRadius,
-                borderSide: BorderSide(width: 2, color: Theme.of(context).primaryColorDark),
-              ),
-          errorBorder: widget.errorBorder ??
-              OutlineInputBorder(
-                borderRadius: borderRadius,
-                borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.error),
-              ),
-          focusedErrorBorder: widget.focusedErrorBorder ??
-              OutlineInputBorder(
-                borderRadius: borderRadius,
-                borderSide: BorderSide(width: 2, color: Theme.of(context).primaryColorDark),
-              ),
-          disabledBorder: widget.disabledBorder ??
-              OutlineInputBorder(
-                borderRadius: borderRadius,
-                borderSide: BorderSide(width: 2, color: Theme.of(context).primaryColorLight),
-              ),
+            if (error) {
+              hintText = widget.hintText;
+              error = false;
+            }
+            if (mounted) setState(() {});
+          },
+          onTap: () {
+            if (widget.fullTextSelection && !firstTimeTap) {
+              textEditingController.selection = TextSelection(
+                baseOffset: 0,
+                extentOffset: textEditingController.value.text.length,
+              );
+              firstTimeTap = true;
+            }
+            if (widget.onTap != null) widget.onTap!();
+            if (error) {
+              hintText = widget.hintText;
+              error = false;
+            }
+            if (mounted) setState(() {});
+          },
+          validator: (value) {
+            if (widget.validator == null || widget.validator!(value) == null) return null;
+            error = true;
+            textEditingController.clear();
+            hintText = widget.validator!(value);
+            if (mounted) setState(() {});
+            return "";
+          },
+          decoration: InputDecoration(
+            label: widget.label,
+            labelText: widget.labelText,
+            labelStyle: isFocused ? widget.labelStyle ?? TextStyle(color: Theme.of(context).primaryColor) : widget.notSelectedLabelStyle ?? TextStyle(color: Theme.of(context).primaryColor.withOpacity(0.5)),
+            floatingLabelBehavior: widget.floatingLabelBehavior,
+            hintText: hintText,
+            prefix: widget.prefix,
+            suffix: widget.suffix,
+            prefixIcon: showLoadingIcon(widget.showPrefixLoadingIcon) ?? widget.prefixIcon,
+            suffixIcon: showLoadingIcon(widget.showSuffixLoadingIcon) ?? widget.suffixIcon,
+            filled: widget.fillColor == null ? false : true,
+            fillColor: widget.fillColor,
+            hintStyle: widget.hintStyle ?? TextStyle(color: error ? Theme.of(context).colorScheme.error : defaultGray),
+            errorStyle: widget.errorStyle ?? const TextStyle(height: 0),
+            contentPadding: widget.contentPadding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            enabledBorder: widget.enabledBorder ??
+                OutlineInputBorder(
+                  borderRadius: borderRadius,
+                  borderSide: BorderSide(width: 2, color: Theme.of(context).primaryColor),
+                ),
+            focusedBorder: widget.focusedBorder ??
+                OutlineInputBorder(
+                  borderRadius: borderRadius,
+                  borderSide: BorderSide(width: 2, color: Theme.of(context).primaryColorDark),
+                ),
+            errorBorder: widget.errorBorder ??
+                OutlineInputBorder(
+                  borderRadius: borderRadius,
+                  borderSide: BorderSide(width: 2, color: Theme.of(context).colorScheme.error),
+                ),
+            focusedErrorBorder: widget.focusedErrorBorder ??
+                OutlineInputBorder(
+                  borderRadius: borderRadius,
+                  borderSide: BorderSide(width: 2, color: Theme.of(context).primaryColorDark),
+                ),
+            disabledBorder: widget.disabledBorder ??
+                OutlineInputBorder(
+                  borderRadius: borderRadius,
+                  borderSide: BorderSide(width: 2, color: Theme.of(context).primaryColorLight),
+                ),
+          ),
         ),
       ),
     );

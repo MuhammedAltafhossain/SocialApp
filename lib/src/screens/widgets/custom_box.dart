@@ -13,6 +13,8 @@ class CustomBox extends StatelessWidget {
     this.padding = const EdgeInsets.symmetric(horizontal: defaultPadding, vertical: defaultPadding),
     this.margin,
     this.constraints,
+    this.borderColor = defaultShadowColor,
+    this.borderWidth = 1,
   });
   final void Function()? onTap;
   final bool enableBorder;
@@ -23,6 +25,8 @@ class CustomBox extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final EdgeInsetsGeometry? margin;
   final BoxConstraints? constraints;
+  final Color borderColor;
+  final double borderWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +37,8 @@ class CustomBox extends StatelessWidget {
         color: backgroundColor ?? Theme.of(context).cardColor.withOpacity(backgroundOpacity ?? 1),
         border: enableBorder
             ? Border.all(
-                color: defaultShadowColor,
-                width: 1,
+                color: borderColor,
+                width: borderWidth,
                 style: BorderStyle.solid,
               )
             : null,
