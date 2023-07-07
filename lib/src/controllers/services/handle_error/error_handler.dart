@@ -7,6 +7,7 @@ class ErrorHandler {
   // Handle Error
   static Future<bool> errorHandler({bool showError = true, required Function function}) async {
     try {
+      if (kDebugMode) print("Requesting ---------------------------- ");
       await function();
       return true;
     } on UserAlreadyExistsException {
@@ -29,7 +30,6 @@ class ErrorHandler {
     } catch (e) {
       if (kDebugMode) print("ErrorHandler: InternalError. ErrorCode: $e");
       if (showError) InternalError(message: e.toString());
-      rethrow;
     }
     return false;
   }

@@ -1,8 +1,16 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:social_app/component.dart';
+import 'package:social_app/src/controllers/data_controllers/data_controller.dart';
+import 'package:social_app/src/controllers/screens_controllers/auth_screen_wrapper_controller.dart';
+import 'package:social_app/src/controllers/screens_controllers/main_screen_wrapper_controller.dart';
+import 'package:social_app/src/controllers/services/functions/form_validation.dart';
+import 'package:social_app/src/models/pojo_classes/user_model.dart';
+import 'package:social_app/src/screens/widgets/auth_text_form_field.dart';
 import 'package:social_app/src/screens/widgets/custom_elevated_button_widget.dart';
+import 'package:social_app/src/screens/widgets/custom_top_navbar_elevated_button.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -12,275 +20,159 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  final AuthScreenWrapperController _authScreenWrapperController = Get.find();
+  final MainScreenWrapperController _mainScreenWrapperController = Get.find();
+  final DataController _dataController = Get.find();
+
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController fnC = TextEditingController();
+  final TextEditingController uC = TextEditingController();
+  final TextEditingController eC = TextEditingController();
+  final TextEditingController pC = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: SafeArea(
+        child: Align(
+          child: SingleChildScrollView(
+            child: Container(
+              constraints: BoxConstraints(maxWidth: defaultMaxWidth),
+              padding: EdgeInsets.symmetric(horizontal: defaultPadding, vertical: defaultPadding),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    //! Title
+                    Text("Hi there!", style: largeTitle),
+                    SizedBox(height: defaultPadding / 4),
+
+                    //! Subtitle
+                    Text("Sign up to your account", style: mediumSubTitle),
+                    SizedBox(height: defaultPadding),
+
+                    //! Full Name field
+                    AuthTextFormField(
+                      textEditingController: fnC,
+                      keyboardType: TextInputType.name,
+                      label: 'Full Name',
+                      validator: (p0) {
+                        if (p0 == null || p0.isEmpty) return "Enter full Name";
+                      },
+                    ),
+                    SizedBox(height: defaultPadding / 4),
+
+                    //! Username input field
+                    AuthTextFormField(
+                      textEditingController: uC,
+                      keyboardType: TextInputType.name,
+                      label: 'Username',
+                      validator: (p0) {
+                        if (p0 == null) return "Invalid Username";
+                        if (!usernameValidation(p0)) return "Invalid Username";
+                      },
+                    ),
+                    SizedBox(height: defaultPadding / 4),
+
+                    //! Email input field
+                    AuthTextFormField(
+                      textEditingController: eC,
+                      keyboardType: TextInputType.emailAddress,
+                      label: 'Email address',
+                      validator: (p0) {
+                        if (p0 == null) return "Invalid Email address";
+                        if (!emailValidation(p0)) return "Invalid Email address";
+                      },
+                    ),
+                    SizedBox(height: defaultPadding / 4),
+
+                    //! Password input field
+                    AuthTextFormField(
+                      textEditingController: pC,
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: true,
+                      label: 'Enter your password',
+                      validator: (p0) {
+                        if (p0 == null) return "Invalid password";
+                        if (!passwordValidation(p0)) return "Invalid password";
+                      },
+                    ),
+                    SizedBox(height: defaultPadding / 4),
+
+                    //! Re-enter Password input field
+                    AuthTextFormField(
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: true,
+                      label: 'Confirm your password',
+                      validator: (p0) {
+                        if (p0 == null) return "Re-enter password";
+                        if (pC.text != p0) return "Password not matched";
+                      },
+                    ),
+                    SizedBox(height: defaultPadding),
+
+                    //! Sign up button
+                    CustomElevatedButton(
+                      expanded: true,
+                      constraints: BoxConstraints(minHeight: defaultBoxHeight),
+                      onTap: () async {
+                        if (!(_formKey.currentState?.validate() ?? true)) return false;
+                        return await _dataController.signup(
+                          userModel: UserModel(
+                            userId: "",
+                            fullName: fnC.text,
+                            email: eC.text,
+                            userName: uC.text,
+                            token: "",
+                          ),
+                          password: pC.text.trim(),
+                        );
+                      },
+                      onDone: (isSuccess) {
+                        if (isSuccess ?? false) _mainScreenWrapperController.moveToHome();
+                      },
+                      child: Text(
+                        "Sign in",
+                        style: mediumTitle.copyWith(color: Theme.of(context).cardColor),
+                      ),
+                    ),
+                    SizedBox(height: defaultPadding),
+
+                    //! Sign in with Google
+                    Row(
+                      children: [
+                        Expanded(child: Divider(height: 2, color: Theme.of(context).shadowColor)),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: defaultPadding / 4),
+                          child: CustomTopNavbarElevatedButton(
+                            hiddenBackground: true,
+                            backgroundColor: Theme.of(context).canvasColor,
+                            child: Center(child: Text("G", style: mediumText.copyWith(color: defaultBlack, fontSize: 22, fontWeight: FontWeight.bold))),
+                          ),
+                        ),
+                        Expanded(child: Divider(height: 2, color: Theme.of(context).shadowColor))
+                      ],
+                    ),
+                    SizedBox(height: defaultPadding / 2),
+
+                    //! Don’t have account? Let’s
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Already have account? Let’s ", style: mediumText),
+                        GestureDetector(
+                          onTap: () => _authScreenWrapperController.pageController.animateToPage(0, duration: Duration(milliseconds: defaultDuration), curve: Curves.linear),
+                          child: Text("Sign in", style: smallTitle.copyWith(color: Theme.of(context).primaryColor, decoration: TextDecoration.underline)),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
-  // Map<String, String> FormValues = {
-  //   'fname': "",
-  //   'username': "",
-  //   'email': '',
-  //   'password1': '',
-  //   'password2': ''
-  // };
-  // var errorMessage;
-
-  // Future<void> createUserWithEmailAndPassword(email, password) async {
-  //   try {
-  //     await Auth().createUserWithEmailAndPassword(email: email, password: password);
-  //   } on FirebaseAuthException catch (e) {
-  //     setState(() {
-  //       errorMessage = e.message;
-  //       ErrorToast(errorMessage);
-  //     });
-  //   }
-  // }
-
-  // Future<void> addUserDetails() async {
-  //   final FirebaseAuth auth = FirebaseAuth.instance;
-  //   final User? user = auth.currentUser;
-  //   final uid = user?.uid;
-  //   print(uid);
-  //   await FirebaseFirestore.instance.collection('users').doc(uid).set({
-  //     'full name': FormValues['fname'],
-  //     'username': FormValues['username'],
-  //     'email': FormValues['email'],
-  //   });
-  // }
-
-  // InputOnChange(key1, value1) {
-  //   setState(() {
-  //     FormValues.update(key1, (value) => value1);
-  //   });
-  // }
-
-  // FormOnSubmit() async {
-  //   if (FormValues['fname'] == '') {
-  //     ErrorToast('Email cannot be empty!!');
-  //   } else if (FormValues['username'] == '') {
-  //     ErrorToast('Password cannot be empty!!');
-  //   } else if (FormValues['password2'] == '') {
-  //     ErrorToast('Password cannot be empty!!');
-  //   } else if (FormValues['password1'] != FormValues['password2']) {
-  //     ErrorToast('Password do not match!!');
-  //   } else {
-  //     await createUserWithEmailAndPassword(FormValues['email'], FormValues['password1']);
-  //     await addUserDetails();
-  //     SuccessToast("Registration Successful!");
-  //     // Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
-  //   }
-  // }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   var height = MediaQuery.of(context).size.height;
-  //   return Scaffold(
-  //     body: SingleChildScrollView(
-  //       child: Column(
-  //         children: [
-  //           SizedBox(
-  //             height: height * 0.05,
-  //           ),
-  //           Text(
-  //             'Hi there!',
-  //             style: largeText,
-  //           ),
-  //           const SizedBox(
-  //             height: 10,
-  //           ),
-  //           Text(
-  //             'Create a new account',
-  //             style: mediumSubTitle,
-  //           ),
-  //           const SizedBox(
-  //             height: 5,
-  //           ),
-  //           Container(
-  //             padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 10),
-  //             child: Column(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 TextFormField(
-  //                   style: mediumTitle,
-  //                   decoration: const InputDecoration(
-  //                     constraints: BoxConstraints(maxHeight: 55),
-  //                     enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.grey), borderRadius: BorderRadius.all(Radius.circular(7))),
-  //                     focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.greenAccent), borderRadius: BorderRadius.all(Radius.circular(7))),
-  //                     label: Text('Full Name', style: TextStyle(color: Colors.greenAccent)),
-  //                   ),
-  //                   onChanged: (value) {
-  //                     InputOnChange('fname', value);
-  //                   },
-  //                 ),
-  //                 const SizedBox(
-  //                   height: 20,
-  //                 ),
-  //                 TextFormField(
-  //                   style: mediumTitle,
-  //                   decoration: const InputDecoration(
-  //                     constraints: BoxConstraints(maxHeight: 55),
-  //                     enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.grey), borderRadius: BorderRadius.all(Radius.circular(7))),
-  //                     focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.greenAccent), borderRadius: BorderRadius.all(Radius.circular(7))),
-  //                     label: Text('Username', style: TextStyle(color: Colors.greenAccent)),
-  //                   ),
-  //                   onChanged: (value) {
-  //                     InputOnChange('username', value);
-  //                   },
-  //                 ),
-  //                 const SizedBox(
-  //                   height: 20,
-  //                 ),
-  //                 TextFormField(
-  //                   style: mediumTitle,
-  //                   decoration: const InputDecoration(
-  //                     constraints: BoxConstraints(maxHeight: 55),
-  //                     enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.grey), borderRadius: BorderRadius.all(Radius.circular(7))),
-  //                     focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.greenAccent), borderRadius: BorderRadius.all(Radius.circular(7))),
-  //                     label: Text('Email Address', style: TextStyle(color: Colors.greenAccent)),
-  //                   ),
-  //                   onChanged: (value) {
-  //                     InputOnChange('email', value);
-  //                   },
-  //                 ),
-  //                 const SizedBox(
-  //                   height: 20,
-  //                 ),
-  //                 TextFormField(
-  //                   style: mediumTitle,
-  //                   decoration: const InputDecoration(
-  //                     constraints: BoxConstraints(maxHeight: 55),
-  //                     enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.grey), borderRadius: BorderRadius.all(Radius.circular(7))),
-  //                     focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.greenAccent), borderRadius: BorderRadius.all(Radius.circular(7))),
-  //                     label: Text('Enter your password', style: TextStyle(color: Colors.greenAccent)),
-  //                   ),
-  //                   onChanged: (value) {
-  //                     InputOnChange('password1', value);
-  //                   },
-  //                   obscureText: true,
-  //                 ),
-  //                 const SizedBox(
-  //                   height: 20,
-  //                 ),
-  //                 TextFormField(
-  //                   style: mediumTitle,
-  //                   decoration: const InputDecoration(
-  //                     constraints: BoxConstraints(maxHeight: 55),
-  //                     enabledBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.grey), borderRadius: BorderRadius.all(Radius.circular(7))),
-  //                     focusedBorder: OutlineInputBorder(borderSide: BorderSide(width: 1, color: Colors.greenAccent), borderRadius: BorderRadius.all(Radius.circular(7))),
-  //                     label: Text('Enter your password again', style: TextStyle(color: Colors.greenAccent)),
-  //                   ),
-  //                   obscureText: true,
-  //                   onChanged: (value) {
-  //                     InputOnChange('password2', value);
-  //                   },
-  //                 ),
-  //                 const SizedBox(
-  //                   height: 30,
-  //                 ),
-  //                 CustomElevatedButton(
-  //                   iconColor: Colors.deepOrange,
-  //                   margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
-  //                   height: 50,
-  //                   expanded: true,
-  //                   onDone: (isSuccess) {
-  //                     print(isSuccess);
-  //                   },
-  //                   onTap: () async {
-  //                     await Future.delayed(Duration(seconds: 2));
-  //                     FormOnSubmit();
-  //                   },
-  //                   child: Text(
-  //                     "Sign Up",
-  //                     style: mediumTitle.copyWith(color: defaultWhite),
-  //                   ),
-  //                 ),
-  //                 const SizedBox(
-  //                   height: 20,
-  //                 ),
-  //                 Row(
-  //                   children: [
-  //                     const Expanded(
-  //                       child: Divider(
-  //                         indent: 0,
-  //                         endIndent: 10.0,
-  //                         thickness: 1,
-  //                       ),
-  //                     ),
-  //                     Text(
-  //                       'Or',
-  //                       style: mediumSubTitle,
-  //                     ),
-  //                     const Expanded(
-  //                       child: Divider(
-  //                         indent: 0,
-  //                         endIndent: 10.0,
-  //                         thickness: 1,
-  //                       ),
-  //                     ),
-  //                   ],
-  //                 ),
-  //                 const SizedBox(
-  //                   height: 20,
-  //                 ),
-  //                 CustomElevatedButton(
-  //                     border: Border.all(width: 1, color: defaultGray, strokeAlign: BorderSide.strokeAlignOutside),
-  //                     borderRadius: const BorderRadius.all(Radius.circular(7)),
-  //                     backgroundColor: Colors.white,
-  //                     iconColor: Colors.deepOrange,
-  //                     margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
-  //                     height: 50,
-  //                     expanded: true,
-  //                     onDone: (isSuccess) {
-  //                       print(isSuccess);
-  //                     },
-  //                     onTap: () async {
-  //                       await Future.delayed(Duration(seconds: 2));
-  //                       FormOnSubmit();
-  //                     },
-  //                     child: Row(
-  //                       mainAxisAlignment: MainAxisAlignment.center,
-  //                       children: [
-  //                         Text(
-  //                           'G',
-  //                           style: mediumText.copyWith(color: defaultBlack, fontSize: 22),
-  //                         ),
-  //                         const SizedBox(
-  //                           width: 10,
-  //                         ),
-  //                         Text(
-  //                           'Sign Up with Google',
-  //                           style: largeSubTitle,
-  //                         )
-  //                       ],
-  //                     )),
-  //                 const SizedBox(
-  //                   height: 15,
-  //                 ),
-  //                 Row(
-  //                   mainAxisAlignment: MainAxisAlignment.center,
-  //                   children: [
-  //                     Text(
-  //                       "Already have an account? Let's ",
-  //                       style: mediumTitle,
-  //                     ),
-  //                     const SizedBox(
-  //                       width: 5,
-  //                     ),
-  //                     InkWell(
-  //                       onTap: () {},
-  //                       child: Text(
-  //                         "Sign in",
-  //                         style: mediumTitle.copyWith(color: Colors.greenAccent),
-  //                       ),
-  //                     )
-  //                   ],
-  //                 )
-  //               ],
-  //             ),
-  //           )
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 }

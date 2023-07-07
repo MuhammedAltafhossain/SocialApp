@@ -8,15 +8,15 @@ class UserModel {
   final String userName;
   final String profileUrl;
   final String token;
-  final DateTime lastActiveDateTime;
+  final DateTime? lastActiveDateTime;
   UserModel({
     required this.userId,
     required this.fullName,
     required this.email,
     required this.userName,
-    required this.profileUrl,
+    this.profileUrl = "",
     required this.token,
-    required this.lastActiveDateTime,
+    this.lastActiveDateTime,
   });
 
   UserModel copyWith({
@@ -47,19 +47,31 @@ class UserModel {
       'userName': userName,
       'profileUrl': profileUrl,
       'token': token,
-      'lastActiveDateTime': lastActiveDateTime.millisecondsSinceEpoch,
+      'lastActiveDateTime': lastActiveDateTime?.millisecondsSinceEpoch,
+    };
+  }
+
+  Map<String, dynamic> toCloud() {
+    return <String, dynamic>{
+      // 'userId': userId,
+      'fullName': fullName,
+      'email': email,
+      'userName': userName,
+      'profileUrl': profileUrl,
+      'token': token,
+      'lastActiveDateTime': 0,
     };
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      userId: map['userId'] as String,
+      userId: map['userId'] ?? "",
       fullName: map['fullName'] as String,
       email: map['email'] as String,
       userName: map['userName'] as String,
       profileUrl: map['profileUrl'] as String,
       token: map['token'] as String,
-      lastActiveDateTime: DateTime.fromMillisecondsSinceEpoch(map['lastActiveDateTime'] as int),
+      lastActiveDateTime: map['lastActiveDateTime'] != null ? DateTime.fromMillisecondsSinceEpoch(map['lastActiveDateTime'] as int) : null,
     );
   }
 
@@ -69,7 +81,7 @@ class UserModel {
 
   @override
   String toString() {
-    return 'UserModel(userId: $userId, fullName: $fullName, email: $email, userName: $userName, profileUrl: $profileUrl, token: $token, lastActiveDateTime: $lastActiveDateTime)';
+    return 'UserModel(userId: $userId, fullName: $fullName, email: $email, userName: $userName, profileUrl: ${profileUrl.length}, token: ${token.length}, lastActiveDateTime: $lastActiveDateTime)';
   }
 
   @override

@@ -20,7 +20,11 @@ class _MainScreenWrapperState extends State<MainScreenWrapper> {
         builder: (controller) {
           return PageView(
             controller: controller.pageController,
-            // physics: const NeverScrollableScrollPhysics(),
+            onPageChanged: (value) {
+              FocusScope.of(context).unfocus();
+              controller.scaffoldKey.currentState?.closeEndDrawer();
+            },
+            physics: const NeverScrollableScrollPhysics(),
             children: controller.pages,
           );
         });

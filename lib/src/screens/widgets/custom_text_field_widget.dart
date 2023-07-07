@@ -175,7 +175,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       height: widget.height,
       child: Focus(
         onFocusChange: (value) {
-          setState(() => isFocused = value);
+          if (mounted) setState(() => isFocused = value);
           if (widget.onFocusChange != null) widget.onFocusChange!(value);
         },
         child: TextFormField(
@@ -257,7 +257,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             label: widget.label,
             labelText: widget.labelText,
             labelStyle: isFocused ? widget.labelStyle ?? TextStyle(color: Theme.of(context).primaryColor) : widget.notSelectedLabelStyle ?? TextStyle(color: Theme.of(context).primaryColor.withOpacity(0.5)),
-            floatingLabelBehavior: widget.floatingLabelBehavior,
+            floatingLabelBehavior: error ? FloatingLabelBehavior.always : widget.floatingLabelBehavior,
             hintText: hintText,
             prefix: widget.prefix,
             suffix: widget.suffix,

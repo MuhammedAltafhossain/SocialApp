@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:social_app/component.dart';
 import 'package:social_app/src/models/app_classes/screen_model.dart';
 import 'package:social_app/src/screens/widgets/custom_elevated_button_widget.dart';
+import 'package:social_app/src/screens/widgets/custom_end_drawer.dart';
 import '../../controllers/screens_controllers/home_screen_wrapper_controller.dart';
 import '../widgets/custom_alive.dart';
 
@@ -19,6 +20,8 @@ class HomeScreenWrapper extends StatelessWidget {
           () => WillPopScope(
             onWillPop: () async => controller.goBack(),
             child: Scaffold(
+              key: controller.mainScreenWrapperController.scaffoldKey,
+              endDrawer: CustomEndDrawer(),
               body: PageView(
                 controller: controller.pageController,
                 physics: const NeverScrollableScrollPhysics(),

@@ -46,6 +46,7 @@ dependencies:
   tuple: ^2.0.2
   sticky_headers: ^0.3.0+2
   cloud_firestore: ^4.8.2
+  firebase_core: ^2.14.0
   emoji_picker_flutter: ^1.6.1
 
 dev_dependencies:

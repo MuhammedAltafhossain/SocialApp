@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:social_app/component.dart';
 import 'package:social_app/src/controllers/data_controllers/data_controller.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:social_app/src/screens/widgets/custom_animated_size.dart';
-import 'package:social_app/src/screens/widgets/custom_clip.dart';
 import 'package:social_app/src/screens/widgets/custom_elevated_button_widget.dart';
 import 'package:social_app/src/screens/widgets/network_image.dart';
 import 'package:tuple/tuple.dart';
@@ -91,9 +89,6 @@ class IntroPage extends StatelessWidget {
                       margin: const EdgeInsets.only(top: defaultPadding),
                       constraints: const BoxConstraints(minHeight: defaultBoxHeight, maxWidth: defaultMaxWidth),
                       onDone: (_) => _dataController.appData.value = _dataController.appData.value.copyWith(showOnBoardScreen: false),
-                      onTap: () async {
-                        print(_dataController.appData.value);
-                      },
                       child: Text(
                         "Get started",
                         style: mediumTitle.copyWith(color: Theme.of(context).canvasColor),

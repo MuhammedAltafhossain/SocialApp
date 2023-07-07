@@ -7,7 +7,6 @@ import 'package:social_app/src/controllers/screens_controllers/followers_screen_
 import 'package:social_app/src/screens/widgets/custom_box.dart';
 import 'package:social_app/src/screens/widgets/custom_elevated_button_widget.dart';
 import 'package:social_app/src/screens/widgets/custom_top_bar.dart';
-import 'package:social_app/src/screens/widgets/custom_top_navbar_elevated_button.dart';
 import 'package:social_app/src/screens/widgets/profile_head_short_info.dart';
 
 class FollowerScreen extends StatelessWidget {
@@ -28,13 +27,7 @@ class FollowerScreen extends StatelessWidget {
           child: Column(
             children: [
               CustomTopBar(
-                leadingAction: [
-                  CustomTopNavbarElevatedButton(
-                    icon: Icons.arrow_back,
-                    onTab: () => Get.back(),
-                  ),
-                ],
-                titleText: "Followers (4K)",
+                titleText: "Followers",
               ),
               Expanded(child: ListView.builder(
                 itemBuilder: (context, index) {
@@ -45,10 +38,11 @@ class FollowerScreen extends StatelessWidget {
                       title: title,
                       subTitle: subTitle,
                       endChild: CustomElevatedButton(
+                        constraints: BoxConstraints(minWidth: 86, minHeight: 34),
                         border: bg ? Border.all(color: defaultBlack, width: 1, strokeAlign: BorderSide.strokeAlignOutside) : null,
                         borderRadius: BorderRadius.circular(defaultPadding),
                         backgroundColor: bg ? Theme.of(context).cardColor : null,
-                        contentPadding: EdgeInsets.symmetric(horizontal: defaultPadding, vertical: defaultPadding / 4),
+                        // contentPadding: EdgeInsets.symmetric(horizontal: defaultPadding, vertical: defaultPadding / 4),
                         child: Text(
                           bg ? "Following" : "Follow",
                           style: mediumText.copyWith(color: bg ? defaultBlack : Theme.of(context).cardColor),

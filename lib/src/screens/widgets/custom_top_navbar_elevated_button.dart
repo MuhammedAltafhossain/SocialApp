@@ -9,17 +9,22 @@ class CustomTopNavbarElevatedButton extends StatelessWidget {
     this.icon,
     this.hiddenBackground = false,
     this.backgroundColor,
+    this.child,
+    this.border,
   });
   final Function()? onTab;
   final IconData? icon;
   final bool hiddenBackground;
   final Color? backgroundColor;
+  final Widget? child;
+  final BoxBorder? border;
 
   @override
   Widget build(BuildContext context) {
     return CustomElevatedButton(
       height: 45,
       width: 45,
+      border: border,
       // margin: const EdgeInsets.symmetric(horizontal: defaultPadding),
       backgroundColor: backgroundColor ?? Colors.transparent,
       gradient: hiddenBackground
@@ -35,7 +40,7 @@ class CustomTopNavbarElevatedButton extends StatelessWidget {
       onDone: (_) {
         if (onTab != null) onTab!();
       },
-      child: Icon(icon, color: Theme.of(context).cardColor),
+      child: child ?? Icon(icon, color: Theme.of(context).cardColor),
     );
   }
 }

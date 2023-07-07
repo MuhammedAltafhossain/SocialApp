@@ -4,7 +4,7 @@ import 'package:social_app/src/controllers/services/local_data/local_data.dart';
 import 'package:social_app/src/models/app_classes/app_data_model.dart';
 import 'package:social_app/src/models/app_classes/local_data_model.dart';
 
-class LocalDataController extends GetxController {
+class LocalDataController {
   final LocalData _localData = LocalData();
   final Rx<LocalDataModel> localData = LocalDataModel(appSetting: AppDataModel()).obs;
 
