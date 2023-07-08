@@ -196,6 +196,8 @@ class ProfilePage extends StatelessWidget {
             CarouselSlider(
                 items: [
                   customPictureContainer(height, width,
+                      'https://images.pexels.com/photos/2108843/pexels-photo-2108843.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+                  customPictureContainer(height, width,
                       'https://s3-alpha-sig.figma.com/img/6c77/c78f/ab99510d7c798e9182966b47f996f8eb?Expires=1688342400&Signature=iGxJ27k1AKTpODYq3kT3ZIwVD3nypf9y~Kkbn6hxNr7SFAvmoCM~L8Gwvcnh1G7RCSpPjsyzX2RxO4G3ctAWISJTe6Fgk80p4J0Q3JWsLtepTPmslTn8yUbEunRmfTNoT7rvk2D3wxwXAzL6VItzueCFlci0rkS0NT4GL32xBdnY3qgwoAoXza29OJstPmJC~XtvCLbcezzDzPe~3Ui2GpS98TeOMP3R2yu-0e9~m1NKeddnB6PkJ-VAQBRAQLaFzat7YtijG~TC67OTR6tlk-mV3fjU~kj9hA4Z4RLAYfyOp7wKIvG79GxhfmaywecCpsE68Kf-av7B0Ju6gmlnhw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'),
                   customPictureContainer(height, width,
                       'https://s3-alpha-sig.figma.com/img/9548/9887/8c164225ed77ca2e2b96a490ded58a9c?Expires=1688342400&Signature=jBL9HyoYvPGKKQnKSIm1iRga5VHqkKIXibDaOORw5rvRaFudgOc7z2h9D0Tt6zDVfkewODCa8UJ878e5PYn7t0eBECpaQhXK1FcP~ku2h1lgppsLi36GEmwuMcC8q7v8QGLBx3JxnS1~ZOPjwIWqBSH~Nt9uZOpuoCoc0YOtd-uLhd~Lsp3-xA6LpCeLCB~e7otSqOsBLy7B0DKBWpkJFd2z6xU-x8wpifg77fw06MopeW4-WpAxISAMOI9vIeU97Yeg1TGgtPjI6G9c~nvREaYnqIawlTpSWexD7TpPlG~5koYocWlC0-4Wjz68L0ERKZiQ6SaLzPXpROCwsOWQIg__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4'),
