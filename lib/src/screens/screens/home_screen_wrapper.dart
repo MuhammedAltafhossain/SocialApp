@@ -20,14 +20,16 @@ class HomeScreenWrapper extends StatelessWidget {
           () => WillPopScope(
             onWillPop: () async => controller.goBack(),
             child: Scaffold(
+              backgroundColor: Colors.transparent,
               key: controller.mainScreenWrapperController.scaffoldKey,
               endDrawer: CustomEndDrawer(),
-              body: PageView(
+              body: PageView.builder(
                 controller: controller.pageController,
                 physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  for (ScreenModel s in controller.pages) CustomAlive(child: s.page)
-                ],
+                itemCount: controller.pages.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return CustomAlive(child: controller.pages[index].page);
+                },
               ),
               bottomNavigationBar: Container(
                 decoration: BoxDecoration(

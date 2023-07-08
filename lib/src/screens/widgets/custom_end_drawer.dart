@@ -20,7 +20,6 @@ class CustomEndDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
       constraints: const BoxConstraints(maxWidth: defaultMaxWidth),
       color: Theme.of(context).canvasColor,
       child: Obx(

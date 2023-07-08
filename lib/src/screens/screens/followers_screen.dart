@@ -6,6 +6,7 @@ import 'package:social_app/component.dart';
 import 'package:social_app/src/controllers/screens_controllers/followers_screen_controller.dart';
 import 'package:social_app/src/screens/widgets/custom_box.dart';
 import 'package:social_app/src/screens/widgets/custom_elevated_button_widget.dart';
+import 'package:social_app/src/screens/widgets/custom_rounded_button.dart';
 import 'package:social_app/src/screens/widgets/custom_top_bar.dart';
 import 'package:social_app/src/screens/widgets/profile_head_short_info.dart';
 
@@ -21,40 +22,58 @@ class FollowerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<FollowerScreenController>(
       init: FollowerScreenController(),
-      builder: (controller) => Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: SafeArea(
-          child: Column(
-            children: [
-              CustomTopBar(
-                titleText: "Followers",
-              ),
-              Expanded(child: ListView.builder(
-                itemBuilder: (context, index) {
-                  bool bg = index % 2 == 0;
-                  return CustomBox(
-                    child: ProfileHeadShortInfo(
-                      profileUrl: profileUrl,
-                      title: title,
-                      subTitle: subTitle,
-                      endChild: CustomElevatedButton(
-                        constraints: BoxConstraints(minWidth: 86, minHeight: 34),
-                        border: bg ? Border.all(color: defaultBlack, width: 1, strokeAlign: BorderSide.strokeAlignOutside) : null,
-                        borderRadius: BorderRadius.circular(defaultPadding),
-                        backgroundColor: bg ? Theme.of(context).cardColor : null,
-                        // contentPadding: EdgeInsets.symmetric(horizontal: defaultPadding, vertical: defaultPadding / 4),
-                        child: Text(
-                          bg ? "Following" : "Follow",
-                          style: mediumText.copyWith(color: bg ? defaultBlack : Theme.of(context).cardColor),
-                        ),
+      builder: (controller) => Column(
+        children: [
+          // CustomTopBar(
+          //   titleText: "Followers",
+          // ),
+          CustomTopBar(
+            // backgroundColor: Colors.transparent,
+            // // leadingWidget: ProfileHeadShortInfo(
+            // //   profileUrl: dataController.user.value?.profileUrl ?? "",
+            // //   title: dataController.user.value?.fullName ?? "",
+            // //   subTitle: dataController.user.value?.userName,
+            // // ),
+            titleText: "Followers",
+            // endingAction: [
+            //   CustomRoundedButton(
+            //     border: Border.all(width: 2, color: Theme.of(context).shadowColor),
+            //     hiddenBackgroundGradient: true,
+            //     onTap: () {
+            //       // homeScreenWrapperController.goBack();
+            //       // Get.to(() => const ProfilePage());
+            //     },
+            //     child: const Icon(Icons.arrow_forward_ios_outlined, color: defaultGray),
+            //   )
+            // ],
+          ),
+          Expanded(
+            child: ListView.builder(
+              padding: EdgeInsets.zero,
+              itemBuilder: (context, index) {
+                bool bg = index % 2 == 0;
+                return CustomBox(
+                  child: ProfileHeadShortInfo(
+                    profileUrl: profileUrl,
+                    title: title,
+                    subTitle: subTitle,
+                    endChild: CustomElevatedButton(
+                      constraints: BoxConstraints(minWidth: 86, minHeight: 34),
+                      border: bg ? Border.all(color: defaultBlack, width: 1, strokeAlign: BorderSide.strokeAlignOutside) : null,
+                      borderRadius: BorderRadius.circular(defaultPadding),
+                      backgroundColor: bg ? Theme.of(context).cardColor : null,
+                      // contentPadding: EdgeInsets.symmetric(horizontal: defaultPadding, vertical: defaultPadding / 4),
+                      child: Text(
+                        bg ? "Following" : "Follow",
+                        style: mediumText.copyWith(color: bg ? defaultBlack : Theme.of(context).cardColor),
                       ),
                     ),
-                  );
-                },
-              ))
-            ],
-          ),
-        ),
+                  ),
+                );
+              },
+            ),
+          )
+        ],
       ),
     );
   }

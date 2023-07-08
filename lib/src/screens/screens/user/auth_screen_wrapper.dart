@@ -14,27 +14,25 @@ class AuthScreenWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Stack(
-          children: [
-            PageView(
-              controller: _controller.pageController,
-              physics: const NeverScrollableScrollPhysics(),
-              onPageChanged: (value) => FocusScope.of(context).unfocus(),
-              children: _controller.pages,
+    return SafeArea(
+      child: Stack(
+        children: [
+          PageView(
+            controller: _controller.pageController,
+            physics: const NeverScrollableScrollPhysics(),
+            onPageChanged: (value) => FocusScope.of(context).unfocus(),
+            children: _controller.pages,
+          ),
+          CustomBox(
+            enableBorder: false,
+            backgroundColor: Colors.transparent,
+            padding: const EdgeInsets.only(left: defaultPadding, top: defaultPadding),
+            child: CustomTopNavbarElevatedButton(
+              icon: Icons.arrow_back,
+              onTab: () => dataController.appData.value = dataController.appData.value.copyWith(showOnBoardScreen: true),
             ),
-            CustomBox(
-              enableBorder: false,
-              backgroundColor: Colors.transparent,
-              padding: const EdgeInsets.only(left: defaultPadding, top: defaultPadding),
-              child: CustomTopNavbarElevatedButton(
-                icon: Icons.arrow_back,
-                onTab: () => dataController.appData.value = dataController.appData.value.copyWith(showOnBoardScreen: true),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

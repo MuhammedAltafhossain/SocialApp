@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:social_app/src/controllers/screens_controllers/main_screen_wrapper_controller.dart';
+import 'package:social_app/src/screens/widgets/custom_alive.dart';
 
 class MainScreenWrapper extends StatefulWidget {
   const MainScreenWrapper({super.key});
@@ -25,7 +26,13 @@ class _MainScreenWrapperState extends State<MainScreenWrapper> {
               controller.scaffoldKey.currentState?.closeEndDrawer();
             },
             physics: const NeverScrollableScrollPhysics(),
-            children: controller.pages,
+            children: [
+              for (Widget w in controller.pages)
+                CustomAlive(
+                  wantKeepAlive: false,
+                  child: w,
+                )
+            ],
           );
         });
   }

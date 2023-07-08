@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:social_app/component.dart';
 import 'package:social_app/src/screens/widgets/custom_rounded_button.dart';
+import 'package:social_app/src/screens/widgets/custom_rounded_profile_head.dart';
 import 'package:social_app/src/screens/widgets/network_image.dart';
 
 class ProfileHeadShortInfo extends StatelessWidget {
@@ -24,25 +25,7 @@ class ProfileHeadShortInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        if (profileUrl != null)
-          CustomRoundedButton(
-            notificationChild: Container(
-              height: defaultPadding / 1.5,
-              width: defaultPadding / 1.5,
-              decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(100),
-                  border: Border.all(
-                    color: Theme.of(context).cardColor,
-                    width: 2,
-                  )),
-            ),
-            backgroundColor: null,
-            // onTap: onTap,
-            child: CustomNetworkImage(
-              url: profileUrl!,
-            ),
-          ),
+        if (profileUrl != null) CustomRoundedProfileHead(profileUrl: profileUrl),
         if (profileUrl != null) const SizedBox(width: defaultPadding / 1.5),
         Expanded(
           child: Column(

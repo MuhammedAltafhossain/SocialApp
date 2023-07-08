@@ -31,54 +31,59 @@ class CustomTopBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomBox(
       padding: EdgeInsets.symmetric(horizontal: padding, vertical: defaultPadding),
-      constraints: const BoxConstraints(minHeight: 96),
+      constraints: BoxConstraints(minHeight: 96 + MediaQuery.of(context).padding.top),
       backgroundOpacity: backgroundOpacity,
       backgroundColor: backgroundColor,
       enableBorder: enableBorder,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          FractionallySizedBox(
-            widthFactor: 1,
-            child: Stack(
-              children: [
-                Row(
-                  children: [
-                    for (Widget w in leadingAction) w,
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: leadingAction.isEmpty ? 0 : defaultPadding),
-                        child: leadingWidget == null ? const SizedBox() : leadingWidget!,
+      borderTop: false,
+      child: Padding(
+        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            FractionallySizedBox(
+              widthFactor: 1,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Row(
+                    children: [
+                      for (Widget w in leadingAction) w,
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: leadingAction.isEmpty ? 0 : defaultPadding),
+                          child: leadingWidget == null ? const SizedBox() : leadingWidget!,
+                        ),
+                      ),
+                      for (Widget e in endingAction) e,
+                    ],
+                  ),
+                  if (titleText != null)
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        titleText!,
+                        style: largeSubTitle.copyWith(height: null),
                       ),
                     ),
-                    for (Widget e in endingAction) e,
-                  ],
-                ),
-                if (titleText != null)
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      titleText!,
-                      style: largeSubTitle.copyWith(height: null),
-                    ),
-                  ),
-              ],
+                ],
+              ),
             ),
-          ),
-          FractionallySizedBox(
-            widthFactor: 1,
-            child: CustomAnimatedSize(
-              child: bottomChild == null
-                  ? null
-                  : Column(
-                      children: [
-                        const SizedBox(height: defaultPadding),
-                        bottomChild!,
-                      ],
-                    ),
-            ),
-          )
-        ],
+            FractionallySizedBox(
+              widthFactor: 1,
+              child: CustomAnimatedSize(
+                child: bottomChild == null
+                    ? null
+                    : Column(
+                        children: [
+                          const SizedBox(height: defaultPadding),
+                          bottomChild!,
+                        ],
+                      ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -35,52 +35,51 @@ class MessageListScreen extends StatelessWidget {
                 color: Theme.of(context).canvasColor,
               ),
             ),
-            body: SafeArea(
-              child: Obx(
-                () => Column(
-                  children: [
-                    CustomTopBar(
-                      leadingWidget: ProfileHeadShortInfo(
-                        isActive: true,
-                        profileUrl: dataController.user.value?.profileUrl,
-                        title: dataController.user.value?.fullName ?? "",
-                        subTitle: dataController.user.value?.userName,
-                      ),
-                      endingAction: [
-                        CustomRoundedButton(
-                          backgroundColor: Colors.transparent,
-                          onTap: () => showSearchBar.value = !showSearchBar.value,
-                          child: const Icon(Icons.search),
-                        ),
-                        CustomRoundedButton(
-                          onTap: () {},
-                          backgroundColor: Colors.transparent,
-                          child: const Icon(Icons.more_vert_outlined),
-                        )
-                      ],
-                      bottomChild: !showSearchBar.value ? null : CustomTextFormField(),
+            body: Obx(
+              () => Column(
+                children: [
+                  CustomTopBar(
+                    leadingWidget: ProfileHeadShortInfo(
+                      isActive: true,
+                      profileUrl: dataController.user.value?.profileUrl,
+                      title: dataController.user.value?.fullName ?? "",
+                      subTitle: dataController.user.value?.userName,
                     ),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: controller.messageList.length + 1,
-                        itemBuilder: (context, index) {
-                          if (index == controller.messageList.length) return const SizedBox(height: 2 * defaultBoxHeight);
-                          return CustomBox(
-                            onTap: () {
-                              Get.to(() => MessageScreen(messageId: controller.messageList.elementAt(index)));
-                            },
-                            child: ProfileHeadShortInfo(
-                              profileUrl: profileUrl2,
-                              title: controller.messageList.elementAt(index),
-                              subTitle: subTitle,
-                              endChild: const Icon(Icons.arrow_right),
-                            ),
-                          );
-                        },
+                    endingAction: [
+                      CustomRoundedButton(
+                        backgroundColor: Colors.transparent,
+                        onTap: () => showSearchBar.value = !showSearchBar.value,
+                        child: const Icon(Icons.search),
                       ),
+                      CustomRoundedButton(
+                        onTap: () {},
+                        backgroundColor: Colors.transparent,
+                        child: const Icon(Icons.more_vert_outlined),
+                      )
+                    ],
+                    bottomChild: !showSearchBar.value ? null : CustomTextFormField(),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: controller.messageList.length + 1,
+                      itemBuilder: (context, index) {
+                        if (index == controller.messageList.length) return const SizedBox(height: 2 * defaultBoxHeight);
+                        return CustomBox(
+                          onTap: () {
+                            Get.to(() => MessageScreen(messageId: controller.messageList.elementAt(index)));
+                          },
+                          child: ProfileHeadShortInfo(
+                            profileUrl: profileUrl2,
+                            title: controller.messageList.elementAt(index),
+                            subTitle: subTitle,
+                            endChild: const Icon(Icons.arrow_right),
+                          ),
+                        );
+                      },
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           );

@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:social_app/component.dart';
@@ -36,7 +37,14 @@ class MyApp extends StatelessWidget {
             background: defaultWhite,
           ),
         ),
-        home: const MainScreenWrapper(),
+        home: Scaffold(
+          body: AnnotatedRegion<SystemUiOverlayStyle>(
+            value: SystemUiOverlayStyle.light.copyWith(
+              statusBarColor: Colors.transparent,
+            ),
+            child: const MainScreenWrapper(),
+          ),
+        ),
       ),
     );
   }

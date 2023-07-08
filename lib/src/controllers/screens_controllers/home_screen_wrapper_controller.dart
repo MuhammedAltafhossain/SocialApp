@@ -17,7 +17,7 @@ class HomeScreenWrapperController extends GetxController {
   List<ScreenModel> pages = [
     ScreenModel(page: const NewsFeedScreen(), label: "News Feed", icons: Icons.home),
     ScreenModel(page: const FollowerScreen(), label: "Friends", icons: Icons.person),
-    ScreenModel(page: const NotificationScreen(), label: "Notification", icons: Icons.notifications),
+    ScreenModel(page: NotificationScreen(), label: "Notification", icons: Icons.notifications),
     ScreenModel(page: MessageListScreen(), label: "Message", icons: Icons.message),
   ];
 
