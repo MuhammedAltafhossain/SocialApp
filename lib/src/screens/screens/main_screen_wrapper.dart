@@ -27,11 +27,7 @@ class _MainScreenWrapperState extends State<MainScreenWrapper> {
             },
             physics: const NeverScrollableScrollPhysics(),
             children: [
-              for (Widget w in controller.pages)
-                CustomAlive(
-                  wantKeepAlive: false,
-                  child: w,
-                )
+              for (Widget w in controller.pages) w
             ],
           );
         });
