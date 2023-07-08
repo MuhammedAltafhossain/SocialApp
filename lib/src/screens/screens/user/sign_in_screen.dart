@@ -5,7 +5,7 @@ import 'package:social_app/src/controllers/data_controllers/data_controller.dart
 import 'package:social_app/src/controllers/screens_controllers/auth_screen_wrapper_controller.dart';
 import 'package:social_app/src/controllers/screens_controllers/main_screen_wrapper_controller.dart';
 import 'package:social_app/src/controllers/services/functions/form_validation.dart';
-import 'package:social_app/src/screens/widgets/auth_text_form_field.dart';
+import 'package:social_app/src/screens/widgets/custom_auth_text_form_field.dart';
 import 'package:social_app/src/screens/widgets/custom_elevated_button_widget.dart';
 
 class SignInPage extends StatefulWidget {
@@ -46,7 +46,7 @@ class _SignInPageState extends State<SignInPage> {
                     const SizedBox(height: defaultPadding * 2),
 
                     //! Email input field
-                    AuthTextFormField(
+                    CustomAuthTextFormField(
                       textEditingController: eC,
                       keyboardType: TextInputType.emailAddress,
                       label: 'Email address',
@@ -58,7 +58,7 @@ class _SignInPageState extends State<SignInPage> {
                     const SizedBox(height: defaultPadding / 2),
 
                     //! Password input field
-                    AuthTextFormField(
+                    CustomAuthTextFormField(
                       textEditingController: pC,
                       keyboardType: TextInputType.visiblePassword,
                       obscureText: true,

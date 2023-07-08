@@ -8,7 +8,7 @@ import 'package:social_app/src/controllers/screens_controllers/auth_screen_wrapp
 import 'package:social_app/src/controllers/screens_controllers/main_screen_wrapper_controller.dart';
 import 'package:social_app/src/controllers/services/functions/form_validation.dart';
 import 'package:social_app/src/models/pojo_classes/user_model.dart';
-import 'package:social_app/src/screens/widgets/auth_text_form_field.dart';
+import 'package:social_app/src/screens/widgets/custom_auth_text_form_field.dart';
 import 'package:social_app/src/screens/widgets/custom_elevated_button_widget.dart';
 import 'package:social_app/src/screens/widgets/custom_top_navbar_elevated_button.dart';
 
@@ -52,7 +52,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(height: defaultPadding),
 
                     //! Full Name field
-                    AuthTextFormField(
+                    CustomAuthTextFormField(
                       textEditingController: fnC,
                       keyboardType: TextInputType.name,
                       label: 'Full Name',
@@ -63,7 +63,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(height: defaultPadding / 4),
 
                     //! Username input field
-                    AuthTextFormField(
+                    CustomAuthTextFormField(
                       textEditingController: uC,
                       keyboardType: TextInputType.name,
                       label: 'Username',
@@ -75,7 +75,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(height: defaultPadding / 4),
 
                     //! Email input field
-                    AuthTextFormField(
+                    CustomAuthTextFormField(
                       textEditingController: eC,
                       keyboardType: TextInputType.emailAddress,
                       label: 'Email address',
@@ -87,7 +87,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(height: defaultPadding / 4),
 
                     //! Password input field
-                    AuthTextFormField(
+                    CustomAuthTextFormField(
                       textEditingController: pC,
                       keyboardType: TextInputType.visiblePassword,
                       obscureText: true,
@@ -100,7 +100,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(height: defaultPadding / 4),
 
                     //! Re-enter Password input field
-                    AuthTextFormField(
+                    CustomAuthTextFormField(
                       keyboardType: TextInputType.visiblePassword,
                       obscureText: true,
                       label: 'Confirm your password',

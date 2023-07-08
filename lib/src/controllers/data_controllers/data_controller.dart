@@ -35,7 +35,6 @@ class DataController extends GetxController {
 
     //* Listener for FirebaseAuth
     FirebaseAuth.instance.userChanges().listen((_) async {
-      print("-----------------------------------------------------------------------");
       if (FirebaseAuth.instance.currentUser == null) user.value = null;
       await _readUserStatus();
     });

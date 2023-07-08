@@ -6,7 +6,6 @@ import 'package:social_app/component.dart';
 import 'package:social_app/src/controllers/data_controllers/data_controller.dart';
 import 'package:social_app/src/controllers/screens_controllers/message/message_list_screen_controller.dart';
 import 'package:social_app/src/screens/screens/message/message_screen.dart';
-import 'package:social_app/src/screens/widgets/custom_animated_size.dart';
 import 'package:social_app/src/screens/widgets/custom_box.dart';
 import 'package:social_app/src/screens/widgets/custom_rounded_button.dart';
 import 'package:social_app/src/screens/widgets/custom_text_field_widget.dart';

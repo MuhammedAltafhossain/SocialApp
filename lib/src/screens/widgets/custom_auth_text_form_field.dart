@@ -4,8 +4,8 @@ import 'package:social_app/component.dart';
 import 'package:social_app/src/screens/widgets/custom_box.dart';
 import 'package:social_app/src/screens/widgets/custom_text_field_widget.dart';
 
-class AuthTextFormField extends StatelessWidget {
-  AuthTextFormField({
+class CustomAuthTextFormField extends StatelessWidget {
+  CustomAuthTextFormField({
     super.key,
     required this.label,
     this.validator,

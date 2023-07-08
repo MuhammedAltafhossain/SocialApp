@@ -4,7 +4,6 @@ import 'package:social_app/component.dart';
 import 'package:social_app/src/controllers/data_controllers/data_controller.dart';
 import 'package:social_app/src/controllers/screens_controllers/auth_screen_wrapper_controller.dart';
 import 'package:social_app/src/screens/widgets/custom_box.dart';
-import 'package:social_app/src/screens/widgets/custom_top_bar.dart';
 import 'package:social_app/src/screens/widgets/custom_top_navbar_elevated_button.dart';
 
 class AuthScreenWrapper extends StatelessWidget {

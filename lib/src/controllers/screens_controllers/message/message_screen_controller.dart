@@ -16,7 +16,6 @@ class MessageScreenController extends GetxController {
   String userId = "1";
   @override
   onInit() {
-    print(messageId);
     super.onInit();
     loadMessage();
   }

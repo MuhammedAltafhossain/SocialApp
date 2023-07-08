@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:social_app/component.dart';
 import 'package:social_app/src/controllers/data_controllers/data_controller.dart';
-import 'package:social_app/src/controllers/screens_controllers/home_screen_wrapper_controller.dart';
 import 'package:social_app/src/screens/screens/home_screen_wrapper.dart';
 import 'package:social_app/src/screens/screens/intro_screen.dart';
 import 'package:social_app/src/screens/screens/user/auth_screen_wrapper.dart';
