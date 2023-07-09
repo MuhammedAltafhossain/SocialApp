@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:social_app/component.dart';
+import 'package:social_app/src/screens/widgets/custom_animated_size.dart';
 import 'package:social_app/src/screens/widgets/custom_box.dart';
 
 class CustomTopBar extends StatelessWidget {
@@ -13,6 +14,7 @@ class CustomTopBar extends StatelessWidget {
     this.leadingWidget,
     this.backgroundColor,
     this.backgroundOpacity,
+    this.padding = defaultPadding,
   });
 
   final List<Widget> endingAction;
@@ -23,54 +25,65 @@ class CustomTopBar extends StatelessWidget {
   final Color? backgroundColor;
   final bool enableBorder;
   final double? backgroundOpacity;
+  final double padding;
 
   @override
   Widget build(BuildContext context) {
     return CustomBox(
+      padding: EdgeInsets.symmetric(horizontal: padding, vertical: defaultPadding),
+      constraints: BoxConstraints(minHeight: 96 + MediaQuery.of(context).padding.top),
       backgroundOpacity: backgroundOpacity,
       backgroundColor: backgroundColor,
       enableBorder: enableBorder,
-      child: Column(
-        children: [
-          FractionallySizedBox(
-            widthFactor: 1,
-            child: Stack(
-              children: [
-                Row(
-                  children: [
-                    for (Widget w in leadingAction) w,
-                    if (leadingWidget != null)
+      borderTop: false,
+      child: Padding(
+        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            FractionallySizedBox(
+              widthFactor: 1,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Row(
+                    children: [
+                      for (Widget w in leadingAction) w,
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-                          child: leadingWidget!,
+                          padding: EdgeInsets.symmetric(horizontal: leadingAction.isEmpty ? 0 : defaultPadding),
+                          child: leadingWidget == null ? const SizedBox() : leadingWidget!,
                         ),
                       ),
-                  ],
-                ),
-                if (titleText != null)
-                  Positioned(
-                    top: 0,
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          titleText!,
-                          style: largeSubTitle,
-                        )),
+                      for (Widget e in endingAction) e,
+                    ],
                   ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: endingAction,
-                )
-              ],
+                  if (titleText != null)
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        titleText!,
+                        style: largeSubTitle.copyWith(height: null),
+                      ),
+                    ),
+                ],
+              ),
             ),
-          ),
-          if (bottomChild != null) const SizedBox(height: defaultPadding),
-          if (bottomChild != null) bottomChild!,
-        ],
+            FractionallySizedBox(
+              widthFactor: 1,
+              child: CustomAnimatedSize(
+                child: bottomChild == null
+                    ? null
+                    : Column(
+                        children: [
+                          const SizedBox(height: defaultPadding),
+                          bottomChild!,
+                        ],
+                      ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

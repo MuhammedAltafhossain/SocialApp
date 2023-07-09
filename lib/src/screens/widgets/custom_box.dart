@@ -13,6 +13,12 @@ class CustomBox extends StatelessWidget {
     this.padding = const EdgeInsets.symmetric(horizontal: defaultPadding, vertical: defaultPadding),
     this.margin,
     this.constraints,
+    this.borderColor = defaultShadowColor,
+    this.borderWidth = 0.5,
+    this.borderTop = true,
+    this.borderBottom = true,
+    this.borderLeft = true,
+    this.borderRight = true,
   });
   final void Function()? onTap;
   final bool enableBorder;
@@ -23,6 +29,12 @@ class CustomBox extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final EdgeInsetsGeometry? margin;
   final BoxConstraints? constraints;
+  final Color borderColor;
+  final double borderWidth;
+  final bool borderTop;
+  final bool borderBottom;
+  final bool borderLeft;
+  final bool borderRight;
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +44,31 @@ class CustomBox extends StatelessWidget {
       decoration: BoxDecoration(
         color: backgroundColor ?? Theme.of(context).cardColor.withOpacity(backgroundOpacity ?? 1),
         border: enableBorder
-            ? Border.all(
-                color: defaultShadowColor,
-                width: 1,
-                style: BorderStyle.solid,
+            ? Border(
+                top: BorderSide(
+                  color: borderColor,
+                  width: borderTop ? borderWidth : 0,
+                  style: BorderStyle.solid,
+                  strokeAlign: BorderSide.strokeAlignInside,
+                ),
+                bottom: BorderSide(
+                  color: borderColor,
+                  width: borderBottom ? borderWidth : 0,
+                  style: BorderStyle.solid,
+                  strokeAlign: BorderSide.strokeAlignInside,
+                ),
+                left: BorderSide(
+                  color: borderColor,
+                  width: borderLeft ? borderWidth : 0,
+                  style: BorderStyle.solid,
+                  strokeAlign: BorderSide.strokeAlignInside,
+                ),
+                right: BorderSide(
+                  color: borderColor,
+                  width: borderRight ? borderWidth : 0,
+                  style: BorderStyle.solid,
+                  strokeAlign: BorderSide.strokeAlignInside,
+                ),
               )
             : null,
         borderRadius: borderRadius,

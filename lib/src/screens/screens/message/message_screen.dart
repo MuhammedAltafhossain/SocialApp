@@ -6,7 +6,6 @@ import 'package:sticky_headers/sticky_headers.dart';
 import 'package:social_app/component.dart';
 import 'package:social_app/src/controllers/screens_controllers/message/message_screen_controller.dart';
 import 'package:social_app/src/screens/widgets/custom_box.dart';
-import 'package:social_app/src/screens/widgets/custom_message_tile.dart';
 import 'package:social_app/src/screens/widgets/custom_rounded_button.dart';
 import 'package:social_app/src/screens/widgets/custom_text_field_widget.dart';
 import 'package:social_app/src/screens/widgets/custom_top_bar.dart';

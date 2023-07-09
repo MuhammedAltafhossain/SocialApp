@@ -78,7 +78,6 @@ Stream<MessageModel> messageSimulate() async* {
   while (true) {
     await Future.delayed(const Duration(seconds: 3));
     int randomNumber = Random().nextInt(100) + 1;
-    print(randomNumber);
     yield MessageModel(
       userId: (randomNumber % 2).toString(),
       messageTime: DateTime.now(),

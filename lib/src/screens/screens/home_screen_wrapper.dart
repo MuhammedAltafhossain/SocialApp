@@ -3,28 +3,33 @@ import 'package:get/get.dart';
 import 'package:social_app/component.dart';
 import 'package:social_app/src/models/app_classes/screen_model.dart';
 import 'package:social_app/src/screens/widgets/custom_elevated_button_widget.dart';
-import '../../controllers/screens_controllers/main_screen_wrapper_controller.dart';
+import 'package:social_app/src/screens/widgets/custom_end_drawer.dart';
+import '../../controllers/screens_controllers/home_screen_wrapper_controller.dart';
 import '../widgets/custom_alive.dart';
 
-class MainScreenWrapper extends StatelessWidget {
-  const MainScreenWrapper({Key? key}) : super(key: key);
+class HomeScreenWrapper extends StatelessWidget {
+  const HomeScreenWrapper({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<MainScreenWrapperController>(
-      init: MainScreenWrapperController(),
+    return GetBuilder<HomeScreenWrapperController>(
+      init: HomeScreenWrapperController(),
       initState: (state) {},
       builder: (controller) {
         return Obx(
           () => WillPopScope(
             onWillPop: () async => controller.goBack(),
             child: Scaffold(
-              body: PageView(
+              backgroundColor: Colors.transparent,
+              key: controller.mainScreenWrapperController.scaffoldKey,
+              endDrawer: CustomEndDrawer(),
+              body: PageView.builder(
                 controller: controller.pageController,
                 physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  for (ScreenModel s in controller.pages) CustomAlive(child: s.page)
-                ],
+                itemCount: controller.pages.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return CustomAlive(child: controller.pages[index].page);
+                },
               ),
               bottomNavigationBar: Container(
                 decoration: BoxDecoration(
