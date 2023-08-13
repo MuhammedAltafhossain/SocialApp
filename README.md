@@ -25,7 +25,7 @@
       └─ screens/
          ├─ screens/
          │  └─ comment_screen.dart
-         |  └─ news_feed_screen.dart
+          |  └─ news_feed_screen.dart
          └─ widgets/
             ├─ custom_animated_size.dart
             ├─ custom_elevated_button_widget.dart
