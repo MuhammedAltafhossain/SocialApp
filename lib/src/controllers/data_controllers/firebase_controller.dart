@@ -4,9 +4,11 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:social_app/src/controllers/services/firebase/firebase_options.dart';
 import 'package:social_app/src/models/pojo_classes/user_model.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 class FirebaseController {
   final String _userString = "users";
+  final String _messageString = "messages";
 
   init() async {
     await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
